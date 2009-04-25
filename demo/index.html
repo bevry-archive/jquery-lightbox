@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>
+            jQuery Lightbox Plugin (balupton edition)
+        </title>
+		
+		<!-- Include jQuery (Lightbox Requirement) -->
+		<script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script>
+		<!-- Include Lightbox (Production) -->
+		<script type="text/javascript" src="../js/jquery.lightbox.min.js"></script>
+		<!-- Include Lightbox (Development) -->
+		<!--<script type="text/javascript" src="../js/jquery.lightbox.js"></script>-->
+		<!-- Include Lightbox (Production, No linkback) -->
+		<!--<script type="text/javascript" src="../js/jquery.lightbox.min.js?show_linkback=false"></script>-->
+		<!-- Include Lightbox (Production, Manual baseurl) -->
+		<!--<script type="text/javascript" src="../js/jquery.lightbox.min.js?baseurl=http://www.your.com/baseurl/jquery_lightbox/"></script>-->
+		<!-- Include Lightbox (Production, Disable scrolling) -->
+		<!--<script type="text/javascript" src="../js/jquery.lightbox.min.js?scroll=disabled"></script>-->
+		<!-- Include Lightbox (Production, colorBlend forced support) -->
+		<!--<script type="text/javascript" src="../js/jquery.lightbox.min.js?colorBlend=true"></script>-->
+		<!-- Include Lightbox (Production, No linkback + Disable scrolling) -->
+		<!--<script type="text/javascript" src="../js/jquery.lightbox.min.js?show_linkback=false&amp;scroll=disabled"></script>-->
+		
+		<link type="text/css" rel="stylesheet" media="screen" href="index.css" />
+    </head>
+    <body>
+
+        <div class="section header">
+            <p>
+                <span class="title"><a href="http://jquery.com/plugins/project/jquerylightbox_bal">jQuery Lightbox Plugin <em>(balupton edition)</em></a></span> <span class="code">Examples &amp; Documentation.</span>
+            </p>
+        </div>
+        <div class="section">
+
+            <div class="desc">
+                <p>
+                    <span class="title">Lightbox Tour</span> <span class="code">Click the first image to begin the tour.</span>
+                </p>
+            </div>
+            <ul>
+                <li>
+
+                    <a rel="lightbox-tour" href="images/overview-large.jpg" title="Welcome to the jQuery Lightbox Plugin (balupton edition): This first set of images will go over some of the features with you."><img src="images/overview-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a rel="lightbox-tour" href="images/grass-large.jpg" title="Image information: As you would of noticed, when your mouse goes over the lightboxed image, the image's information then displays. Then when you rollover the image information, some extra (but not important) information is shown for the duration of the lightbox."><img src="images/grass-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a rel="lightbox-tour" href="images/lost-large.jpg" title="This part is the image title: This part is the image description. This information is obtained from the title attribute of the lightboxed element. The description is whatever follows the first ': ' if it exists within the title. The next image will have a empty title attribute to show you what happens."><img src="images/lost-small.jpg" alt="" /></a>
+                </li>
+                <li>
+
+                    <a rel="lightbox-tour" href="images/overview-large.jpg"><img src="images/overview-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a rel="lightbox-tour" href="images/beach-large.jpg" title="Only a title"><img src="images/beach-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a rel="lightbox-tour" href="images/bamboo-large.jpg" title="New / Optimized Design: Balupton's edition of lightbox has a optimized design to achieve the overal goal of what lightbox is for. Lightboxes are used to display a image on the same page. So the darkened opacity, tiny padding around the image, and only the image initially, all help achieve this goal."><img src="images/bamboo-small.jpg" alt="" /></a>
+                </li>
+                <li>
+
+                    <a rel="lightbox-tour" href="images/lost-large.jpg" title="Also: notice how the prev / next buttons have been moved to the middle, as this is where your mouse and eyes typically are looking when you perform the mouseover."><img src="images/lost-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a rel="lightbox-tour" href="images/beach-large.jpg" title="Thanks!"><img src="images/beach-small.jpg" alt="" /></a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="section">
+
+            <div class="desc">
+                <p>
+                    <span class="title">Common Use:<br />
+                    Automaticly create grouped lightboxes.</span> <span class="code">&lt;a <span class="important">rel="lightbox-myGroup"</span> href="images/mountain-large.jpg" &gt;</span>
+                </p>
+
+            </div>
+            <ul>
+                <li>
+                    <a rel="lightbox-myGroup" href="images/lost-large.jpg"><img src="images/lost-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a rel="lightbox-myGroup" href="images/beach-large.jpg"><img src="images/beach-small.jpg" alt="" /></a>
+                </li>
+                <li>
+
+                    <a rel="lightbox-myGroup" href="images/bamboo-large.jpg"><img src="images/bamboo-small.jpg" alt="" /></a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="section">
+            <div class="desc">
+                <p>
+                    <span class="title">Common Use:<br />
+
+                    Automaticly create individual lightboxes.</span> <span class="code">&lt;a <span class="important">rel="lightbox"</span> href="images/mountain-large.jpg" &gt;</span>
+                </p>
+            </div>
+            <ul>
+                <li>
+                    <a rel="lightbox" href="images/grass-large.jpg" title="Notice: how this image is all by itself, as in there is no previous/next buttons!"><img src="images/grass-small.jpg" alt="" /></a>
+
+                </li>
+                <li>
+                    <a rel="lightbox" href="images/overview-large.jpg" title="Notice: how this image is all by itself, as in there is no previous/next buttons!"><img src="images/overview-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a rel="lightbox" href="images/lost-large.jpg" title="Notice: how this image is all by itself, as in there is no previous/next buttons!"><img src="images/lost-small.jpg" alt="" /></a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+
+        </div>
+        <div class="section" id="ourManualGallery">
+            <div class="desc">
+                <p>
+                    <span class="title">Uncommon Use:<br />
+                    Manually create grouped lightboxes.</span> <span class="code">&lt;script type="text/javascript"&gt; $(document).ready(function(){ <span class="important">$('#ourManualGallery a').lightbox();</span> }); &lt;/script&gt;</span>
+
+                </p>
+            </div><script type="text/javascript">
+			//<![CDATA[
+			$(document).ready(function(){
+				$('#ourManualGallery a').lightbox();
+			});
+			//]]>
+            </script>
+            <ul>
+                <li>
+                    <a href="images/overview-large.jpg"><img src="images/overview-small.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a href="images/beach-large.jpg"><img src="images/beach-small.jpg" alt="" /></a>
+
+                </li>
+                <li>
+                    <a href="images/grass-large.jpg"><img src="images/grass-small.jpg" alt="" /></a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="section">
+            <div class="desc">
+
+                <p>
+                    <span class="title">Uncommon Use:<br />
+                    Manually create a individual lightbox.</span> <span class="code">&lt;a class="lightbox-enabled" <span class="important">onclick="$(this).lightbox({start:true,events:false}); return false;"</span> href="images/mountain-large.jpg" &gt;</span>
+                </p>
+            </div>
+
+            <ul>
+                <li>
+                    <a class="lightbox-enabled" onclick="$(this).lightbox({start:true,events:false}); return false;" href="images/beach-large.jpg" title="How it works?: It works by creating a lightbox for this (this being the element that the onlick attribute is inside of). start:true means automaticly start the lightbox once we have made it. And events:false means that we don't need to add an onclick event to our element so we can run the lightbox later (as that is what this onclick does!). The return false is there so that we do not continue going to the href."><img src="images/beach-small.jpg" alt="" /></a>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="section footer">
+			<p>
+				This work is licenced under a <a rel="license" href="http://www.gnu.org/licenses/agpl.html">GNU Affero General Public License</a> &nbsp;&nbsp;|&nbsp;&nbsp; Hosting generously donated by <a href="http://www.nghosting.org/">New Generation Hosting</a> &nbsp;&nbsp;|&nbsp;&nbsp; WordPress Plugin available <a href="http://wordpress.org/extend/plugins/jquery-lightbox-balupton-edition/">here</a><br />
+			</p>
+			<br />
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><p>
+			    <input type="hidden" name="cmd" value="_s-xclick" /> <input type="image" src="https://www.paypal.com/en_US/i/btn/x-click-but21.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!" /> <img alt="" src="https://www.paypal.com/en_AU/i/scr/pixel.gif" width="1" height="1" /> <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----" />
+			</p></form>
+			<br />
+			<p>
+				<!-- Google Adsense -->
+			    <script type="text/javascript">
+				//<![CDATA[
+				google_ad_client = "pub-6833533759061226";
+				/* jquery_lightbox: leaderboard */
+				google_ad_slot = "4528230020";
+				google_ad_width = 728;
+				google_ad_height = 90;
+			    google_cpa_choice = ""; // on file
+			    //]]>
+			    </script>
+				<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+			 </p>
+			<br />
+        </div>
+		<!-- Google Analytics -->
+		<script type="text/javascript">
+		//<![CDATA[
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+        //]]>
+        </script><script type="text/javascript">
+		//<![CDATA[
+        var pageTracker = _gat._getTracker("UA-4446117-1");
+        pageTracker._initData();
+        pageTracker._trackPageview();
+        //]]>
+        </script>
+    </body>
+</html>

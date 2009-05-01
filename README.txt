@@ -1,7 +1,7 @@
 ----
 /**
  * jQuery Lightbox Plugin (balupton edition) - Lightboxes for jQuery
- * Copyright (C) 2008 Benjamin Arthur Lupton
+ * Copyright (C) 2007-2009 Benjamin Arthur Lupton
  * http://jquery.com/plugins/project/jquerylightbox_bal
  *
  * Permission is granted to copy, distribute and/or modify this document
@@ -13,11 +13,11 @@
  *
  * @name jquery_lightbox: jquery.lightbox.js
  * @package jQuery Lightbox Plugin (balupton edition)
- * @version v1.3.7-final
+ * @version v1.3.8-dev
  * @date April 25, 2009
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
- * @copyright (c) 2008 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2007-2009 Benjamin Arthur Lupton {@link http://www.balupton.com}
  * @license GNU Free Documentation License - {@link http://www.gnu.org/licenses/fdl.html}
  * @example Visit {@link http://jquery.com/plugins/project/jquerylightbox_bal} for more information.
  */
@@ -179,6 +179,9 @@ How to apply options?
 ----
 
 Changelog:
+
+v1.3.8-dev
+- Clean of $.Lightbox.images
 
 v1.3.7-final (April 25, 2009)
 - Fixed typos in readme

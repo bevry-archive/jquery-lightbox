@@ -1,6 +1,6 @@
 /**
  * jQuery Lightbox Plugin (balupton edition) - Lightboxes for jQuery
- * Copyright (C) 2008 Benjamin Arthur Lupton
+ * Copyright (C) 2007-2009 Benjamin Arthur Lupton
  * http://jquery.com/plugins/project/jquerylightbox_bal
  *
  * This file is part of jQuery Lightbox (balupton edition).
@@ -20,11 +20,11 @@
  *
  * @name jquery_lightbox: jquery.lightbox.js
  * @package jQuery Lightbox Plugin (balupton edition)
- * @version 1.3.7-final
+ * @version 1.3.8-dev
  * @date April 25, 2009
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
- * @copyright (c) 2008 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2007-2009 Benjamin Arthur Lupton {@link http://www.balupton.com}
  * @license GNU Affero General Public License - {@link http://www.gnu.org/licenses/agpl.html}
  * @example Visit {@link http://jquery.com/plugins/project/jquerylightbox_bal} for more information.
  */

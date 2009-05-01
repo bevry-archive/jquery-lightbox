@@ -51,7 +51,12 @@
 				warn:	window.console.warn		|| $.log,
 				error:	window.console.error	|| $.log,
 				trace:	window.console.trace	|| $.log
-			}
+			};
+			$log   = $.log;
+			$debug = $.console.debug;
+			$warn  = $.console.warn;
+			$error = $.console.error;
+			$trace = $.console.trace;
 		}
 		else
 		{	// Don't use anything
@@ -63,6 +68,11 @@
 				error:	alert,
 				trace:	$.log
 			};
+			$log   = $.log;
+			$debug = $.console.debug;
+			$warn  = $.console.warn;
+			$error = $.console.error;
+			$trace = $.console.trace;
 		}
 	}
 	
@@ -134,12 +144,112 @@
 		return json;
 	};
 	
+	
+	var $toArray = function(item){
+		return ( $type(item) !== 'array' ) ? [item] : item;
+	}
+	
+	// Array Remove - By John Resig (MIT Licensed)
+	Array.prototype.remove = function(from, to) {
+		var rest = this.slice((to || from) + 1 || this.length);
+		this.length = from < 0 ? this.length + from : from;
+		return this.push.apply(this, rest);
+	};
+	
+	// Array List functions - By Benjamin "balupton" Lupton (MIT Licenced)
+	Array.prototype.get = function(index, current) {
+		if ( index === 'first' ) index = 0;
+		else if ( index === 'last' ) index = this.length-1;
+		else if ( !index && index !== 0 ) index = this.index;
+		if ( current !== false ) this.setIndex(index);
+		return this[index] || undefined;
+	};
+	Array.prototype.each = function(fn){
+		for (var i = 0; i < this.length; ++i) {
+			if (fn(i, this[i], this) === false) 
+				break;
+		}
+		return this;
+	}
+	Array.prototype.setIndex = function(index){
+		if ( index < this.length && index >= 0 ) {
+			this.index = index;
+		} else {
+			this.index = null;
+		}
+		return this;
+	};
+	Array.prototype.current = function(index){
+		return this.get(index, true);
+	};
+	Array.prototype.isEmpty = function(){
+		return this.length === 0;
+	};
+	Array.prototype.isSingle = function(){
+		return this.length === 1;
+	};
+	Array.prototype.isMany = function(){
+		return this.length !== 0;
+	};
+	Array.prototype.isLast = function(index){
+		index = typeof index === 'undefined' ? this.index : index;
+		return !this.isEmpty() && index === this.length-1;
+	}
+	Array.prototype.isFirst = function(index){
+		index = typeof index === 'undefined' ? this.index : index;
+		return !this.isEmpty() && index === 0;
+	}
+	Array.prototype.clear = function(){
+		this.length = 0;
+	};
+	Array.prototype.next = function(update){
+		return this.get(this.index+1, update);
+	};
+	Array.prototype.prev = function(update){
+		return this.get(this.index-1, update);
+	};
+	Array.prototype.reset = function(){
+		this.index = null;
+		return this;
+	};
+	Array.prototype.set = function(index, item){
+		// We want to set the item
+		if ( index < this.length && index >= 0 ) {
+			this[index] = item;
+		} else {
+			$error('index above array length');
+			return false;
+		}
+		return this;
+	};
+	Array.prototype.loop = function(){
+		if ( !this.index && this.index !== 0 ) {
+			return this.current(0);
+		}
+		return this.next();
+	};
+	Array.prototype.add = function(){
+		this.push.apply(this,arguments);
+		return this;
+	};
+	Array.prototype.insert = function(index, item){
+		if ( typeof index !== 'number' ) {
+			index = this.length;
+		}
+		index = index<=this.length ? index : this.length;
+		var rest = this.slice(index);
+		this.length = index;
+		this.push(item);
+		this.push.apply(this, rest);
+		return this;
+	};
+	
 	// Declare our class
 	$.LightboxClass = function ( )
 	{	// This is the handler for our constructor
 		this.construct();
 	};
-
+	
 	// Extend jQuery elements for Lightbox
 	$.fn.lightbox = function ( options )
 	{	// Init a el for Lightbox
@@ -158,18 +268,18 @@
 		options = $.extend({start:false,events:true} /* default options */, options);
 		
 		// Get group
-		var group = $(this);
+		var $group = $(this);
 		
 		// Events?
 		if ( options.events )
 		{	// Add events
-			$(group).unbind('click').click(function(){
+			$group.unbind('click').click(function(){
 				// Get obj
-				var obj = $(this);
-				// Get rel
-				// var rel = $(obj).attr('rel');
+				var $obj = $(this);
+				// Get position
+				var index = $group.index($obj);
 				// Init group
-				if ( !$.Lightbox.init($(obj)[0], group) )
+				if ( !$.Lightbox.init(index, $group) )
 				{	return false;	}
 				// Display lightbox
 				if ( !$.Lightbox.start() )
@@ -178,7 +288,7 @@
 				return false;
 			});
 			// Add style
-			$(group).addClass('lightbox-enabled');
+			$group.addClass('lightbox-enabled');
 		}
 		
 		// Start?
@@ -189,7 +299,7 @@
 			// Get rel
 			// var rel = $(obj).attr('rel');
 			// Init group
-			if ( !$.Lightbox.init($(obj)[0], group) )
+			if ( !$.Lightbox.init(0, $group) )
 			{	return this;	}
 			// Display lightbox
 			if ( !$.Lightbox.start() )
@@ -205,267 +315,9 @@
 	{	// Our LightboxClass definition
 		
 		// -----------------
-		// Everyting to do with images
+		// Everything to do with images
 		
-		images: {
-			
-			// -----------------
-			// Variables
-			
-			// Our array of images
-			list:[], /* [ {
-				src: 'url to image',
-				link: 'a link to a page',
-				title: 'title of the image',
-				name: 'name of the image',
-				description: 'description of the image'
-			} ], */
-			
-			// The current active image
-			image: false,
-			
-			// -----------------
-			// Functions
-			
-			prev: function ( image )
-			{	// Get previous image
-				
-				// Get previous from current?
-				if ( typeof image === 'undefined' )
-				{	image = this.active();
-					if ( !image ) { return image; }
-				}
-				
-				// Is there a previous?
-				if ( this.first(image) )
-				{	return false;	}
-				
-				// Get the previous
-				return this.get(image.index-1);
-			},
-			
-			next: function ( image )
-			{	// Get next image
-				
-				// Get next from current?
-				if ( typeof image === 'undefined' )
-				{	image = this.active();
-					if ( !image ) { return image; }
-				}
-				
-				// Is there a next?
-				if ( this.last(image) )
-				{	return false;	}
-				
-				// Get the next
-				return this.get(image.index+1);
-			},
-			
-			first: function ( image )
-			{	//
-				// Get the first image?
-				if ( typeof image === 'undefined' )
-				{	return this.get(0);	}
-				
-				// Are we the first?
-				return image.index === 0;
-			},
-			
-			last: function ( image )
-			{	//
-				// Get the last image?
-				if ( typeof image === 'undefined' )
-				{	return this.get(this.size()-1);	}
-				
-				// Are we the last?
-				return image.index === this.size()-1;
-			},
-		
-			single: function ( )
-			{	// Are we only one
-				return this.size() === 1;
-			},
-			
-			size: function ( )
-			{	// How many images do we have
-				return this.list.length;
-			},
-			
-			empty: function ( )
-			{	// Are we empty
-				return this.size() === 0;
-			},
-			
-			clear: function ( )
-			{	// Clear image arrray
-				this.list = [];
-				this.image = false;
-			},
-		
-			active: function ( image )
-			{	// Set or get the active image
-				// Use false to reset
-				
-				// Get the active image?
-				if ( typeof image === 'undefined' )
-				{	return this.image;	}
-				
-				// Set the ative image
-				if ( image !== false )
-				{	// Make sure image exists
-					image = this.get(image);
-					if ( !image )
-					{	// Error
-						return image;
-					}
-				}
-				
-				// Set the active image
-				this.image = image;
-				return true;
-			},
-		
-			add: function ( obj )
-			{
-				// Do we need to recurse?
-				if ( obj[0] )
-				{	// We have a lot of images
-					for ( var i = 0; i < obj.length; i++ )
-					{	this.add(obj[i]);	}
-					return true;
-				}
-				
-				// Default image
-				
-				// Try and create a image
-				var image = this.create(obj);
-				if ( !image ) { return image; }
-				
-				// Set image index
-				image.index = this.size();
-				
-				// Push image
-				this.list.push(image);
-				
-				// Success
-				return true;
-			},
-			
-			create: function ( obj )
-			{	// Create image
-				
-				// Define
-				var image = { // default
-					src:	'',
-					title:	'Untitled',
-					description:	'',
-					name:	'',
-					index:	-1,
-					color:	null,
-					width:	null,
-					height:	null,
-					image:	true
-				};
-				
-				// Create
-				if ( obj.image )
-				{	// Already a image, so copy over values
-					image.src = obj.src || image.src;
-					image.title = obj.title || image.title;
-					image.description = obj.description || image.description;
-					image.name = obj.name || image.name;
-					image.color = obj.color || image.color;
-					image.width = obj.width || image.width;
-					image.height = obj.height || image.height;
-					image.index = obj.index || image.index;
-				}
-				else if ( obj.tagName )
-				{	// We are an element
-					obj = $(obj);
-					if ( obj.attr('src') || obj.attr('href') )
-					{
-						image.src = obj.attr('src') || obj.attr('href');
-						image.title = obj.attr('title') || obj.attr('alt') || image.title;
-						image.name = obj.attr('name') || '';
-						image.color = obj.css('backgroundColor');
-						// Extract description from title
-						var s = image.title.indexOf(': ');
-						if ( s > 0 )
-						{	// Description exists
-							image.description = image.title.substring(s+2) || image.description;
-							image.title = image.title.substring(0,s) || image.title;
-						}
-					}
-					else
-					{	// Unsupported element
-						image = false;
-					}
-				}
-				else
-				{	// Unknown
-					image = false;
-				}
-				
-				if ( !image )
-				{	// Error
-					$.console.error('We dont know what we have:', obj);
-					return false;
-				}
-				
-				// Success
-				return image;
-			},
-			
-			get: function ( image )
-			{	// Get the active, or specified image
-				
-				// Establish image
-				if ( typeof image === 'undefined' || image === null )
-				{	// Get the active image
-					return this.active();
-				}
-				else
-				if ( typeof image === 'number' )
-				{	// We have a index
-					
-					// Get image
-					image = this.list[image] || false;
-				}
-				else
-				{	// Create
-					image = this.create(image);
-					if ( !image ) { return false; }
-					
-					// Find
-					var f = false;
-					for ( var i = 0; i < this.size(); i++ )
-					{
-						var c = this.list[i];
-						if ( c.src === image.src && c.title === image.title && c.description === image.description )
-						{	f = c;	}
-					}
-					
-					// Found?
-					image = f;
-				}
-				
-				// Determine image
-				if ( !image )
-				{	// Image doesn't exist
-					$.console.error('The desired image does not exist: ', image, this.list);
-					return false;
-				}
-				
-				// Return image
-				return image;
-			},
-			
-			debug: function ( )
-			{
-				return $.Lightbox.debug(arguments);
-			}
-			
-		},
+		images: [],
 		
 		// -----------------
 		// Variables
@@ -649,6 +501,68 @@
 					options = $.extend(options, $.params_to_json(this.src));
 				}
 				
+				// Create
+				this.images.image = {
+					src:	'',
+					title:	'Untitled',
+					description:	'',
+					name:	'',
+					color:	null,
+					width:	null,
+					height:	null,
+					id: 	null,
+					image:	true
+				};
+				this.images.prepare = function(obj){
+					var image = $.extend({}, this.image);
+					if ( obj.tagName ) {
+						// We are an element
+						obj = $(obj);
+						if ( obj.attr('src') || obj.attr('href') ) {
+							image.src = obj.attr('src') || obj.attr('href');
+							image.title = obj.attr('title') || obj.attr('alt') || image.title;
+							image.name = obj.attr('name') || '';
+							image.color = obj.css('backgroundColor');
+							// Extract description from title
+							var s = image.title.indexOf(': ');
+							if ( s > 0 )
+							{	// Description exists
+								image.description = image.title.substring(s+2) || image.description;
+								image.title = image.title.substring(0,s) || image.title;
+							}
+						} else {
+							image = null;
+						}
+					} else if ( obj.src ) {
+						// We are a image object
+						image = $.extend(this.image,obj);
+					} else {
+						image = null;
+					}
+					if ( image ) {
+						image.id = image.id || image.src+image.title+image.description;
+					}
+					return image;
+				}
+				this.images.create = function(obj){
+					var images = this;
+					if ( obj.each ) {
+						obj.each(function(index,item){
+							images.create(item);
+						});
+						return;
+					}
+					
+					var image = images.prepare(obj);
+					
+					if ( !image ) {
+						$.console.error('We dont know what we have:', obj, image);
+					} else {
+						images.push(image);
+					}
+					
+					return images;
+				};
 			}
 			else
 			if ( typeof options.files === 'object' )
@@ -832,7 +746,8 @@
 			},function() { // out
 				$(this).css({ 'background' : 'transparent url(' + $.Lightbox.files.images.blank + ') no-repeat' });
 			}).click(function() {
-				$.Lightbox.showImage($.Lightbox.images.prev());
+				$.Lightbox.images.prev();
+				$.Lightbox.showImage();
 				return false;
 			});
 					
@@ -842,7 +757,8 @@
 			},function() { // out
 				$(this).css({ 'background' : 'transparent url(' + $.Lightbox.files.images.blank + ') no-repeat' });
 			}).click(function() {
-				$.Lightbox.showImage($.Lightbox.images.next());
+				$.Lightbox.images.next();
+				$.Lightbox.showImage();
 				return false;
 			});
 			
@@ -919,29 +835,30 @@
 		{	// Init a batch of lightboxes
 			
 			// Establish images
-			if ( typeof images === 'undefined' )
-			{
+			if ( typeof images === 'undefined' ) {
 				images = image;
 				image = 0;
 			}
 			
 			// Clear
 			this.images.clear();
-			
+				
 			// Add images
-			if ( !this.images.add(images) )
-			{	return false;	}
+			this.images.create(images);
 			
 			// Do we need to bother
-			if ( this.images.empty() )
-			{	// No images
+			if ( this.images.isEmpty() ) {
+				// No images
 				$.console.warn('WARNING', 'Lightbox started, but no images: ', image, images);
 				return false;
 			}
 			
-			// Set active
-			if ( !this.images.active(image) )
-			{	return false;	}
+			// Set current
+			if ( !this.images.current(image) ) {
+				// No images
+				$.console.warn('WARNING', 'Could not find current image: ', image, this.images);
+				return false;
+			}
 			
 			// Done
 			return true;
@@ -978,8 +895,10 @@
 				$('#lightbox').fadeIn(300);
 				
 				// Display first image
-				if ( !$.Lightbox.showImage($.Lightbox.images.active()) )
-				{	$.Lightbox.finish();	return false;	}
+				if ( !$.Lightbox.showImage() ) {
+					$.Lightbox.finish();
+					return false;
+				}
 			});
 			
 			// All done
@@ -996,8 +915,8 @@
 			// Fix attention seekers
 			$('embed, object, select').css({ 'visibility' : 'visible' });//.show();
 			
-			// Kill active image
-			this.images.active(false);
+			// Kill current image
+			this.images.reset();
 			
 			// Adjust scrolling
 			if ( this.scroll === 'disable' )
@@ -1044,7 +963,7 @@
 			}
 			
 			// Get image
-			var image = this.images.active();
+			var image = this.images.current();
 			if ( !image || !image.width || !this.visible )
 			{	// No image or no visible lightbox, so we don't care
 				//$.console.warn('A resize occured while no image or no lightbox...');
@@ -1205,22 +1124,14 @@
 		},
 		
 		visible: false,
-		showImage: function ( image, step )
-		{
-			// Establish image
-			image = this.images.get(image);
-			if ( !image ) { return image; }
-			
+		showImage: function ( image, step ){
 			// Default step
 			step = step || 1;
 			
-			// Split up below for jsLint compliance
-			var skipped_step_1 = step > 1 && this.images.active().src !== image.src;
-			var skipped_step_2 = step > 2 && $('#lightbox-image').attr('src') !== image.src;
-			if ( skipped_step_1 || skipped_step_2 )
-			{	// Force step 1
-				$.console.info('We wanted to skip a few steps: ', image, step, skipped_step_1, skipped_step_2);
-				step = 1;
+			// Make the image the current image, or get the current
+			image = this.images.current(image) || this.images.get('first',true);
+			if ( !image ) {
+				return;
 			}
 			
 			// What do we need to do
@@ -1242,9 +1153,6 @@
 					// Remove show info events
 					$('#lightbox-imageBox').unbind();
 					// ^ Why? Because otherwise when the image is changing, the info pops out, not good!
-					
-					// Make the image the active image
-					if ( !this.images.active(image) ) { return false; }
 					
 					// Check if we need to preload
 					if ( image.width && image.height )
@@ -1314,7 +1222,9 @@
 					$('#lightbox-loading').hide();
 					
 					// Animate image
-					$('#lightbox-image').fadeIn(this.speed*1.5, function() {$.Lightbox.showImage(null, 4); });
+					$('#lightbox-image').fadeIn(this.speed*1.5, function() {
+						$.Lightbox.showImage(null, 4);
+					});
 					
 					// Start the proloading of other images
 					this.preloadNeighbours();
@@ -1345,9 +1255,9 @@
 					$('#lightbox-caption-description').html(image.description || '&nbsp;');
 					
 					// If we have a set, display image position
-					if ( this.images.size() > 1 )
+					if ( this.images.length > 1 )
 					{	// Display
-						$('#lightbox-currentNumber').html(this.text.image + '&nbsp;' + ( image.index + 1 ) + '&nbsp;' + this.text.of + '&nbsp;' + this.images.size());
+						$('#lightbox-currentNumber').html(this.text.image + '&nbsp;' + ( image.index + 1 ) + '&nbsp;' + this.text.of + '&nbsp;' + this.images.length);
 					} else
 					{	// Empty
 						$('#lightbox-currentNumber').html('&nbsp;');
@@ -1384,18 +1294,18 @@
 					$('#lightbox-nav-btnPrev, #lightbox-nav-btnNext').css({ 'background' : 'transparent url(' + this.files.images.blank + ') no-repeat' });
 					
 					// If not first, show previous button
-					if ( !this.images.first(image) ) {
+					if ( !this.images.isFirst() ) {
 						// Not first, show button
 						$('#lightbox-nav-btnPrev').show();
 					}
 					
 					// If not last, show next button
-					if ( !this.images.last(image) ) {
+					if ( !this.images.isLast() ) {
 						// Not first, show button
 						$('#lightbox-nav-btnNext').show();
 					}
 					
-					// Make navigation active / show it
+					// Make navigation current / show it
 					$('#lightbox-nav').show();
 					
 					// Enable keyboard navigation
@@ -1422,27 +1332,30 @@
 		{	// Preload all neighbour images
 			
 			// Do we need to do this?
-			if ( this.images.single() || this.images.empty() )
+			if ( this.images.isSingle() || this.images.isEmpty() )
 			{	return true;	}
 			
-			// Get active image
-			var image = this.images.active();
+			// Get current image
+			var image = this.images.current();
+			var index = this.images.index;
 			if ( !image ) { return image; }
+			var objNext;
 			
 			// Load previous
-			var prev = this.images.prev(image);
-			var objNext;
+			var prev = this.images.prev();
 			if ( prev ) {
 				objNext = new Image();
 				objNext.src = prev.src;
 			}
+			this.images.setIndex(index); // reset
 			
 			// Load next
-			var next = this.images.next(image);
+			var next = this.images.next();
 			if ( next ) {
 				objNext = new Image();
 				objNext.src = next.src;
 			}
+			this.images.setIndex(index); // reset
 		},
 		
 		// --------------------------------------------------

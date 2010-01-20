@@ -258,7 +258,7 @@
 		// If need be: Instantiate $.LightboxClass to $.Lightbox
 		$.Lightbox = $.Lightbox || new $.LightboxClass();
 		
-		// Handle IE6 appropriatly
+		// Handle IE6
 		if ( $.Lightbox.ie6 && !$.Lightbox.ie6_support )
 		{	// We are IE6 and we want to ignore
 			return this; // chain

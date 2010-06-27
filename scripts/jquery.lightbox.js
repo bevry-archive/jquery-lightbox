@@ -333,21 +333,21 @@
 		
 		files: {
 			compressed: {
-				js: {
-					lightbox:	'js/jquery.lightbox.min.js',
-					colorBlend:	'js/jquery.color.min.js'
+				scripts: {
+					lightbox:	'scripts/jquery.lightbox.min.js',
+					colorBlend:	'scripts/jquery.color.min.js'
 				},
-				css: {
-					lightbox:	'css/jquery.lightbox.css'
+				styles: {
+					lightbox:	'styles/jquery.lightbox.min.css'
 				}
 			},
 			uncompressed: {
-				js: {
-					lightbox:	'js/jquery.lightbox.js',
-					colorBlend:	'js/jquery.color.js'
+				scripts: {
+					lightbox:	'scripts/jquery.lightbox.js',
+					colorBlend:	'scripts/jquery.color.js'
 				},
-				css: {
-					lightbox:	'css/jquery.lightbox.css'
+				styles: {
+					lightbox:	'styles/jquery.lightbox.css'
 				}
 			},
 			images: {
@@ -401,7 +401,6 @@
 		
 		ie6:			null,		// are we ie6?
 		ie6_support:	true,		// have ie6 support
-		ie6_upgrade:	true,		// show ie6 upgrade message
 		
 		colorBlend:		null,		// null - auto-detect, true - force, false - no
 		
@@ -413,7 +412,7 @@
 		show_extended_info:	'auto',	// auto - automaticly handle, true - force	
 		
 		// names of the options that can be modified
-		options:	['show_helper_text', 'auto_scroll', 'auto_resize', 'download_link', 'show_info', 'show_extended_info', 'ie6_support', 'ie6_upgrade', 'colorBlend', 'baseurl', 'files', 'text', 'show_linkback', 'keys', 'opacity', 'padding', 'speed', 'rel', 'auto_relify'],
+		options:	['show_helper_text', 'auto_scroll', 'auto_resize', 'download_link', 'show_info', 'show_extended_info', 'ie6_support', 'colorBlend', 'baseurl', 'files', 'text', 'show_linkback', 'keys', 'opacity', 'padding', 'speed', 'rel', 'auto_relify'],
 		
 		// -----------------
 		// Functions
@@ -461,14 +460,14 @@
 				this.compressed = null;
 				
 				// Get the src of the first script tag that includes our js file (with or without an appendix)
-				var $script = $('script[src*='+this.files.compressed.js.lightbox+']:first');
+				var $script = $('script[src*='+this.files.compressed.scripts.lightbox+']:first');
 				if ( $script.length !== 0 ) {
 					// Compressed
 					$.extend(true, this.files, this.files.compressed);
 					this.compressed = true;
 				} else {
 					// Uncompressed
-					$script = $('script[src*='+this.files.uncompressed.js.lightbox+']:first');
+					$script = $('script[src*='+this.files.uncompressed.scripts.lightbox+']:first');
 					if ( $script.length !== 0 ) {
 						// Uncompressed
 						$.extend(true, this.files, this.files.uncompressed);
@@ -492,7 +491,7 @@
 					this.src = $script.attr('src');
 					
 					// The baseurl is the src up until the start of our js file
-					this.baseurl = this.src.substring(0, this.src.indexOf(this.files.js.lightbox));
+					this.baseurl = this.src.substring(0, this.src.indexOf(this.files.scripts.lightbox));
 					
 					// Prepend baseurl to files
 					this.files = prepend(this.files, this.baseurl);
@@ -629,14 +628,8 @@
 			
 			// Grab resources
 			var bodyEl = document.getElementsByTagName($.browser.safari ? 'head' : 'body')[0];
-			var stylesheets = this.files.css;
-			var scripts = this.files.js;
-			
-			// Handle IE6 appropriatly
-			if ( this.ie6 && this.ie6_upgrade )
-			{	// Add the upgrade message
-				scripts.ie6 = 'http://www.savethedevelopers.org/say.no.to.ie.6.js';
-			}
+			var stylesheets = this.files.styles;
+			var scripts = this.files.scripts;
 			
 			// colorBlend
 			if ( this.colorBlend === true && typeof $.colorBlend === 'undefined' )
@@ -1257,7 +1250,7 @@
 					// If we have a set, display image position
 					if ( this.images.length > 1 )
 					{	// Display
-						$('#lightbox-currentNumber').html(this.text.image + '&nbsp;' + ( image.index + 1 ) + '&nbsp;' + this.text.of + '&nbsp;' + this.images.length);
+						$('#lightbox-currentNumber').html(this.text.image + '&nbsp;' + ( this.images.index + 1 ) + '&nbsp;' + this.text.of + '&nbsp;' + this.images.length);
 					} else
 					{	// Empty
 						$('#lightbox-currentNumber').html('&nbsp;');

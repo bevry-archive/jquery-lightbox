@@ -181,6 +181,7 @@ v1.3.9-dev (June 27, 2009)
 * Removed ie6_upgrade option - it was intrusive
 * Updated to jQuery v1.4.2
 * Fixed "Image NaN of X" issue
+* Fixed download link still working even on download_link=false - jsma http://bit.ly/beuoBD
 
 v1.3.8-dev
 - Clean of $.Lightbox.images

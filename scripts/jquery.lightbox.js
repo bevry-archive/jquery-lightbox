@@ -770,7 +770,9 @@
 			);
 			
 			// Image link
-			$('#lightbox-caption-title').click(function(){window.open($(this).attr('href')); return false;});
+			if ( this.download_link ) {
+				$('#lightbox-caption-title').click(function(){window.open($(this).attr('href')); return false;});
+			}
 			
 			// Assign close clicks
 			$('#lightbox-overlay, #lightbox, #lightbox-loading-link, #lightbox-btnClose').unbind().click(function() {
@@ -1241,8 +1243,9 @@
 					
 					// Hide and set image info
 					var $title = $('#lightbox-caption-title').html(image.title || 'Untitled');
-					if ( this.download_link )
-					{	$title.attr('href', this.download_link ? image.src : '');	}
+					if ( this.download_link ) {
+						$title.attr('href', this.download_link ? image.src : '');
+					}
 					delete $title;
 					$('#lightbox-caption-seperator').html(image.description ? ': ' : '');
 					$('#lightbox-caption-description').html(image.description || '&nbsp;');

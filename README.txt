@@ -174,7 +174,7 @@ How to apply options?
 
 Changelog:
 
-v1.3.9-dev
+v1.3.9-dev (June 27, 2009)
 * js to scripts, css to styles
 * We now use google closure for js, and yui compressor for css
 * Added Makefile to handle compression

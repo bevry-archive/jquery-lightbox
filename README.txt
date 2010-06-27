@@ -13,11 +13,11 @@
  *
  * @name jquery_lightbox: jquery.lightbox.js
  * @package jQuery Lightbox Plugin (balupton edition)
- * @version v1.3.8-dev
- * @date April 25, 2009
+ * @version v1.3.9-dev
+ * @date June 27, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
- * @copyright (c) 2007-2009 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  * @license GNU Free Documentation License - {@link http://www.gnu.org/licenses/fdl.html}
  * @example Visit {@link http://jquery.com/plugins/project/jquerylightbox_bal} for more information.
  */
@@ -26,9 +26,9 @@
 Installation:
 Upload the jquery_lightbox directory to somewhere on your webserver, then include the following into your webpages html head:
 	<!-- Include jQuery (Lightbox Requirement) -->
-	<script type="text/javascript" src="jquery_lightbox/js/jquery-1.2.6.pack.js"></script>
+	<script type="text/javascript" src="jquery_lightbox/scripts/jquery-1.4.2.min.js"></script>
 	<!-- Include Lightbox (Production) -->
-	<script type="text/javascript" src="jquery_lightbox/js/jquery.lightbox.packed.js"></script>
+	<script type="text/javascript" src="jquery_lightbox/scripts/jquery.lightbox.min.js"></script>
 adjusting the src locations appropriately.
 
 Usage:
@@ -86,12 +86,6 @@ Options:
 	Values:
 	  true (default)       - Support IE6
 	  false                - Ignore IE6
-	
-	Name: ie6_upgrade
-	Description: Should we show an IE6 upgrade message for IE6 users
-	Values:
-	  true (default)       - Yes
-	  false                - No
 	
 	Name: show_linkback
 	Description: Show or hide the linkback up the top right corner
@@ -162,10 +156,10 @@ How to apply options?
 	Use the below examples to derive how it is used to hide the linkback, and translate "Image" to "Photo".
 	
 	Link method:
-		<script type="text/javascript" src="jquery_lightbox/js/jquery.lightbox.packed.js?show_linkback=false&amp;text.image=Photo"></script>
+		<script type="text/javascript" src="jquery_lightbox/scripts/jquery.lightbox.min.js?show_linkback=false&amp;text.image=Photo"></script>
 		
 	Constructor method:
-		<script type="text/javascript" src="jquery_lightbox/js/jquery.lightbox.packed.js"></script>
+		<script type="text/javascript" src="jquery_lightbox/scripts/jquery.lightbox.min.js"></script>
 		<script type="text/javascript">$(function(){
 			$.Lightbox.construct({
 				show_linkback:	false,
@@ -179,6 +173,14 @@ How to apply options?
 ----
 
 Changelog:
+
+v1.3.9-dev
+* js to scripts, css to styles
+* We now use google closure for js, and yui compressor for css
+* Added Makefile to handle compression
+* Removed ie6_upgrade option - it was intrusive
+* Updated to jQuery v1.4.2
+* Fixed "Image NaN of X" issue
 
 v1.3.8-dev
 - Clean of $.Lightbox.images

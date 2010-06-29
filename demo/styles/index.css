@@ -72,7 +72,10 @@ p {
 
 
 /* Gallery Styling */
-.gallery .image-title, .gallery .image-description {
+.gallery .image-title,
+.gallery .image-description,
+.gallery .image-author,
+.gallery .image-link {
 	display:none;
 }
 

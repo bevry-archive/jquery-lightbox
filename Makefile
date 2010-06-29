@@ -1,3 +1,5 @@
+# Javascript/CSS Compressor Makefile - By Benjamin "balupton" Lupton (MIT Licenced)
+
 MAKEFLAGS = --no-print-directory --always-make
 MAKE = make $(MAKEFLAGS)
 

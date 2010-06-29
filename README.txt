@@ -2,7 +2,7 @@
 /**
  * jQuery Lightbox Plugin (balupton edition) - Lightboxes for jQuery
  * Copyright (C) 2007-2010 Benjamin Arthur Lupton
- * http://jquery.com/plugins/project/jquerylightbox_bal
+ * http://github.com/balupton/jquery-lightbox
  *
  * Permission is granted to copy, distribute and/or modify this document
  * under the terms of the GNU Free Documentation License, Version 1.2
@@ -19,7 +19,7 @@
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  * @license GNU Free Documentation License - {@link http://www.gnu.org/licenses/fdl.html}
- * @example Visit {@link http://jquery.com/plugins/project/jquerylightbox_bal} for more information.
+ * @example Visit {@link http://github.com/balupton/jquery-lightbox} for more information.
  */
 ----
 
@@ -32,13 +32,13 @@ Upload the jquery_lightbox directory to somewhere on your webserver, then includ
 adjusting the src locations appropriately.
 
 Usage:
-Refer to (index.html) or (http://www.balupton.com/sandbox/jquery_lightbox/) if (index.html) does not exist.
+Refer to (demo/index.html) or (http://www.balupton.com/sandbox/jquery-lightbox/demo/) if (demo/index.html) does not exist.
 
 For more information:
-Refer to the source code of (index.html) or (http://www.balupton.com/sandbox/jquery_lightbox/) if (index.html) does not exist.
+Refer to the source code of (demo/index.html) or ((http://www.balupton.com/sandbox/jquery-lightbox/demo/) if (demo/index.html) does not exist.
 
 Support:
-http://plugins.jquery.com/project/issues/jquerylightbox_bal
+http://getsatisfaction.com/balupton/products/balupton_jquery_lightbox
 
 ----
 

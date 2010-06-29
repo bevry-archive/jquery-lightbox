@@ -13,7 +13,7 @@
  *
  * @name jquery_lightbox: jquery.lightbox.js
  * @package jQuery Lightbox Plugin (balupton edition)
- * @version v1.3.10-dev
+ * @version v1.4.0-beta
  * @date June 29, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
@@ -174,8 +174,10 @@ How to apply options?
 
 Changelog:
 
-v1.3.10-dev (June 29, 2009)
+v1.4.0-beta (June 29, 2009)
 - Fixed up $.console, was causing issues in chrome
+- Updated demo for use with new style. Removed adsense.
+- Essentially v1.3.9-dev with one fix and nicer demo.
 
 v1.3.9-dev (June 27, 2009)
 - js to scripts, css to styles

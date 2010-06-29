@@ -101,7 +101,7 @@ p {
 	line-height: 0;
 }
 
-.gallery ul.images li.image a.image-thumbnail
+.gallery ul.images li.image a
 {
 	text-decoration: none;
 	color: inherit;
@@ -123,7 +123,7 @@ p {
 	transition: -webkit-box-shadow 0.1s ease-out;
 }
 
-.gallery ul.images li.image a.image-thumbnail img
+.gallery ul.images li.image a img
 {
 	border: none;
 	padding: none;
@@ -132,7 +132,7 @@ p {
 	border-radius: 4px 4px;
 }
 
-.gallery ul.images li.image a.image-thumbnail:hover
+.gallery ul.images li.image a:hover
 {
 	-moz-box-shadow: 0px 0px 8px #222;
 	-webkit-box-shadow: 0px 0px 8px #222;

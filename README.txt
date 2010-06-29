@@ -13,8 +13,8 @@
  *
  * @name jquery_lightbox: jquery.lightbox.js
  * @package jQuery Lightbox Plugin (balupton edition)
- * @version v1.3.9-dev
- * @date June 27, 2010
+ * @version v1.3.10-dev
+ * @date June 29, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
@@ -174,14 +174,17 @@ How to apply options?
 
 Changelog:
 
+v1.3.10-dev (June 29, 2009)
+- Fixed up $.console, was causing issues in chrome
+
 v1.3.9-dev (June 27, 2009)
-* js to scripts, css to styles
-* We now use google closure for js, and yui compressor for css
-* Added Makefile to handle compression
-* Removed ie6_upgrade option - it was intrusive
-* Updated to jQuery v1.4.2
-* Fixed "Image NaN of X" issue
-* Fixed download link still working even on download_link=false - jsma http://bit.ly/beuoBD
+- js to scripts, css to styles
+- We now use google closure for js, and yui compressor for css
+- Added Makefile to handle compression
+- Removed ie6_upgrade option - it was intrusive
+- Updated to jQuery v1.4.2
+- Fixed "Image NaN of X" issue
+- Fixed download link still working even on download_link=false - jsma http://bit.ly/beuoBD
 
 v1.3.8-dev
 - Clean of $.Lightbox.images

@@ -21,7 +21,7 @@
  * @name jquery_lightbox: jquery.lightbox.js
  * @package jQuery Lightbox Plugin (balupton edition)
  * @version 1.3.9-dev
- * @date June 27, 2009
+ * @date June 29, 2009
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
@@ -34,49 +34,87 @@
 {	// Create our Plugin function, with $ as the argument (we pass the jQuery object over later)
 	// More info: http://docs.jquery.com/Plugins/Authoring#Custom_Alias
 	
-	// Debug
+	/**
+	 * Console Emulator
+	 * @copyright Benjamin "balupton" Lupton (MIT Licenced)
+	 * We have to convert arguments into arrays, and do this explicitly as webkit hates function references, and arguments cannot be passed as is
+	 */
 	if ( typeof $.log === 'undefined' ) {
-		if ( !$.browser.safari && typeof window.console !== 'undefined' && typeof window.console.log === 'function' )
+		if ( typeof window.console !== 'undefined' && typeof window.console.log === 'function' )
 		{	// Use window.console
-			$.log = function(){
-				var args = [];
-			    for(var i = 0; i < arguments.length; i++) {
-			        args.push(arguments[i]);
-			    }
-			    window.console.log.apply(window.console, args);
-			}
-			$.console = {
-				log:	$.log,
-				debug:	window.console.debug	|| $.log,
-				warn:	window.console.warn		|| $.log,
-				error:	window.console.error	|| $.log,
-				trace:	window.console.trace	|| $.log
+			// Prepare
+			$.console = {};
+			// Log
+			$.console.log = $.log = function(){
+				var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+			    window.console.log.apply(window.console, arr);
 			};
-			$log   = $.log;
-			$debug = $.console.debug;
-			$warn  = $.console.warn;
-			$error = $.console.error;
-			$trace = $.console.trace;
+			// Debug
+			if ( typeof window.console.debug !== 'undefined' ) {
+				$.console.debug = function(){
+					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.debug.apply(window.console, arr);
+				};
+			} else {
+				$.console.debug = function(){
+					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.log.apply(window.console, arr);
+				};
+			}
+			// Warn
+			if ( typeof window.console.warn !== 'undefined' ) {
+				$.console.warn = function(){
+					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.warn.apply(window.console, arr);
+				};
+			} else {
+				$.console.warn = function(){
+					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.log.apply(window.console, arr);
+				};
+			}
+			// Error
+			if ( typeof window.console.error !== 'undefined' ) {
+				$.console.error = function(){
+					var arr = ['An error has occured:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.error.apply(window.console, arr);
+					$.console.trace();
+				};
+			} else {
+				$.console.error = function(){
+					var args = arguments;
+					var arr = ['An error has occured:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.log.apply(window.console, arr);
+					$.console.trace();
+				};
+			}
+			// Trace
+			if ( typeof window.console.trace !== 'undefined' ) {
+				$.console.trace = function(){
+				    window.console.trace();
+				};
+			} else {
+				$.console.trace = function(){
+				    window.console.log.apply(window.console, ["Attempted trace... but window.console.trace does not exist."]);
+				};
+			}
 		}
 		else
 		{	// Don't use anything
-			$.log = function ( ) { };
-			$.console = {
-				log:	$.log,
-				debug:	$.log,
-				warn:	$.log,
-				error:	alert,
-				trace:	$.log
+			// Prepare
+			$.console = {};
+			// Assign
+			$.log = $.console.log = $.console.debug = $.console.warn = $.console.trace = function(){};
+			$.console.error = function(){
+				alert("An error has occured. Please use another browser to obtain more detailed information.");
 			};
-			$log   = $.log;
-			$debug = $.console.debug;
-			$warn  = $.console.warn;
-			$error = $.console.error;
-			$trace = $.console.trace;
 		}
 	}
 	
-	// Pre-Req
+	/**
+	 * Params to JSON
+	 * @copyright Benjamin "balupton" Lupton (MIT Licenced)
+	 */
 	$.params_to_json = $.params_to_json || function ( params )
 	{	// Turns a params string or url into an array of params
 		// Adjust
@@ -144,19 +182,20 @@
 		return json;
 	};
 	
-	
-	var $toArray = function(item){
-		return ( $type(item) !== 'array' ) ? [item] : item;
-	}
-	
-	// Array Remove - By John Resig (MIT Licensed)
+	/**
+	 * Array Remove
+	 * @copyright By John Resig (MIT Licensed)
+	 */
 	Array.prototype.remove = function(from, to) {
 		var rest = this.slice((to || from) + 1 || this.length);
 		this.length = from < 0 ? this.length + from : from;
 		return this.push.apply(this, rest);
 	};
 	
-	// Array List functions - By Benjamin "balupton" Lupton (MIT Licenced)
+	/**
+	 * ArrayList Functions
+	 * @copyright By Benjamin "balupton" Lupton (MIT Licenced)
+	 */
 	Array.prototype.get = function(index, current) {
 		if ( index === 'first' ) index = 0;
 		else if ( index === 'last' ) index = this.length-1;

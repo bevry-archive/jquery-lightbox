@@ -342,13 +342,6 @@ v0.1.0-dev (December 3, 2007)
 
 ----
 
-Known Issues:
-
-XHTML Incompatiable: An invalid or illegal string was specified
-See: http://plugins.jquery.com/node/1392
-
-----
-
 Special Thanks / Based upon / Inspired by / Credits to:
 - Warren Krewenki's jQuery Lightbox Plugin v0.5 {@link http://jquery-lightbox.googlecode.com/}
 - Leandro Vieira Pinho's jQuery Lightbox Plugin v0.4 {@link http://leandrovieira.com/projects/jquery/lightbox/}

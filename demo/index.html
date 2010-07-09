@@ -26,7 +26,7 @@
 		
 		<!-- Include this demo's requirements -->
 		<link type="text/css" rel="stylesheet" media="screen" href="./styles/index.css" />
-		<script type="text/javascript" src="./scripts/jquery.beautyOfCode.min.js" />
+		<script type="text/javascript" src="./scripts/jquery.beautyOfCode.min.js"></script>
 		<script type="text/javascript">/*<![CDATA[*/
 			$.beautyOfCode.init({
 				defaults: { gutter: true },
@@ -42,6 +42,7 @@
 			<h2><a href="http://github.com/balupton/jquery-lightbox" title="Project Page">Project Page</a></h2>
 			<h2><a href="http://github.com/balupton/jquery-lightbox/tree/master" title="Source Code">Source Code</a></h2>
 			<h2><a href="http://getsatisfaction.com/balupton/products/balupton_jquery_lightbox" title="Get Support">Get Support</a></h2>
+			<h2><a href="http://wordpress.org/extend/plugins/jquery-lightbox-balupton-edition/" title="Wordpress Plugin">Wordpress Plugin</a></h2>
 		</div>
 		
 		<div class="section">
@@ -110,7 +111,7 @@
 			<h2>Step 1. Download jQuery Lightbox, and extract it to your hard drive</h2>
 			
 			<h2>Step 2. Move the extracted <code>jquery-lightbox</code> directory to your website's root/home folder</h2>
-			<p>If all the files were extracted without being in a directory, create a new directory called <code>jquery-lightbox</code> and use that.</p>
+			<p>If all the files were extracted without being in a directory, create a new directory called <code>jquery-lightbox</code> and place the extracted files in that.</p>
 				
 			<h2>Step 3. Include jQuery (insert into your page's head tag)</h2>
 			<p>If your page already has jQuery included, you can skip this step.</p>
@@ -209,7 +210,7 @@
 			<p>So pick one or the other, and apply the customisation and you won't have the linkback anymore!</p>
 			
 			<h2>What if I would like to translate it into my own language?</h2>
-			<p>You can do this to! So we are going to use the second style above, as there is a lot of text that could be translated. To translate from english to english we can use:</p>
+			<p>You can do this too! So we are going to use the second style above, as there is a lot of text that could be translated. To translate from english to english we can use:</p>
 			<code class="code language-html">
 				&lt;script type="text/javascript"&gt;$(function(){
 					$.Lightbox.construct({
@@ -233,7 +234,7 @@
 					});
 				});&lt;/script&gt;
 			</code>
-			<p>So pick one or the other, and apply the customisation and you won't have the linkback anymore!</p>
+			<p>So there you have it, the left side is what is to be translated, and the right is the text that will be used as the translation!. It's that easy.</p>
 			
 			<h2>That's cool, what other customisations do you support?</h2>
 			<p>A whole bunch! But you will have to read the readme for all the details and use cases! You can find the readme in your jquery lightbox download as <code>README.txt</code>.</p>
@@ -324,18 +325,28 @@
 			</p></form> 
 			<br />
 		</div>
+		
 		<!-- Google Analytics --> 
 		<script type="text/javascript"> 
-		//<![CDATA[
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        //]]>
-        </script><script type="text/javascript"> 
-		//<![CDATA[
-        var pageTracker = _gat._getTracker("UA-4446117-1");
-        pageTracker._initData();
-        pageTracker._trackPageview();
-        //]]>
+			//<![CDATA[
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			//]]>
+		</script> 
+		<script type="text/javascript" src="./scripts/modernizr-1.5.min.js"></script> 
+		<script type="text/javascript"> 
+			//<![CDATA[
+			try {
+				var pageTracker = _gat._getTracker("UA-4446117-1");
+				pageTracker._initData();
+				pageTracker._setCustomVar(1, "html5.boxshadow", Modernizr.boxshadow ? "yes" : "no" , 2 );
+				pageTracker._setCustomVar(2, "html5.multiplebgs", Modernizr.multiplebgs ? "yes" : "no", 2 );
+				pageTracker._setCustomVar(3, "html5.fontface", Modernizr.fontface ? "yes" : "no", 2 );
+				pageTracker._setCustomVar(4, "html5.csstransitions", Modernizr.csstransitions ? "yes" : "no", 2 );
+				pageTracker._setCustomVar(5, "html5.borderradius", Modernizr.borderradius ? "yes" : "no", 2 );
+				pageTracker._trackPageview();
+			} catch(err) {}
+			//]]>
 		</script>
 		
     </body>

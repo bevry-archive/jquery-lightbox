@@ -2,7 +2,7 @@
 /**
  * jQuery Lightbox Plugin (balupton edition) - Lightboxes for jQuery
  * Copyright (C) 2007-2010 Benjamin Arthur Lupton
- * http://github.com/balupton/jquery-lightbox
+ * http://www.balupton.com/projects/jquery-lightbox
  *
  * Permission is granted to copy, distribute and/or modify this document
  * under the terms of the GNU Free Documentation License, Version 1.2
@@ -11,15 +11,15 @@
  * Texts.  A copy of the license is included in the section entitled "GNU
  * Free Documentation License".
  *
- * @name jquery_lightbox: jquery.lightbox.js
- * @package jQuery Lightbox Plugin (balupton edition)
- * @version v1.4.2-beta
- * @date June 29, 2010
+ * @name readme
+ * @package jquery-lightbox
+ * @version v1.4.3-beta
+ * @date July 09, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  * @license GNU Free Documentation License - {@link http://www.gnu.org/licenses/fdl.html}
- * @example Visit {@link http://github.com/balupton/jquery-lightbox} for more information.
+ * @example Visit {@link http://www.balupton.com/projects/jquery-lightbox} for more information.
  */
 ----
 
@@ -173,6 +173,13 @@ How to apply options?
 ----
 
 Changelog:
+
+v1.4.3-beta (July 09, 2009)
+- Fixed left and right keyboard buttons
+- Added Checklist
+- Updated sparkle dependencies
+- Fixed some typos with the documentation. And added link to the wordpress plugin at the top (as well as bottom).
+- Updated linkback and other similar links to balupton site, rather than github site
 
 v1.4.2-beta (June 29, 2009)
 - Forgot to remake

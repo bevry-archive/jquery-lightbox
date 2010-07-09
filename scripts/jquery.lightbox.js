@@ -1,7 +1,7 @@
 /**
  * jQuery Lightbox Plugin (balupton edition) - Lightboxes for jQuery
  * Copyright (C) 2007-2010 Benjamin Arthur Lupton
- * http://github.com/balupton/jquery-lightbox
+ * http://www.balupton.com/projects/jquery-lightbox
  *
  * This file is part of jQuery Lightbox (balupton edition).
  * 
@@ -18,15 +18,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with jQuery Lightbox (balupton edition).  If not, see <http://www.gnu.org/licenses/>.
  *
- * @name jquery_lightbox: jquery.lightbox.js
- * @package jQuery Lightbox Plugin (balupton edition)
- * @version 1.4.2-beta
- * @date June 29, 2009
+ * @name jquery.lightbox.js
+ * @package jquery-lightbox
+ * @version 1.4.3-beta
+ * @date July 09, 2009
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  * @license GNU Affero General Public License - {@link http://www.gnu.org/licenses/agpl.html}
- * @example Visit {@link http://github.com/balupton/jquery-lightbox} for more information.
+ * @example Visit {@link http://www.balupton.com/projects/jquery-lightbox} for more information.
  */
 
 // Start of our jQuery Plugin
@@ -36,89 +36,69 @@
 	
 	/**
 	 * Console Emulator
-	 * @copyright Benjamin "balupton" Lupton (MIT Licenced)
-	 * We have to convert arguments into arrays, and do this explicitly as webkit hates function references, and arguments cannot be passed as is
+	 * We have to convert arguments into arrays, and do this explicitly as webkit (chrome) hates function references, and arguments cannot be passed as is
+	 * @version 1.0.1
+	 * @since 1.0.0 June 20, 2010
+	 * @date July 09, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
 	 */
-	if ( typeof $.log === 'undefined' ) {
-		if ( typeof window.console !== 'undefined' && typeof window.console.log === 'function' )
-		{	// Use window.console
-			// Prepare
-			$.console = {};
-			// Log
-			$.console.log = $.log = function(){
-				var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-			    window.console.log.apply(window.console, arr);
-			};
-			// Debug
-			if ( typeof window.console.debug !== 'undefined' ) {
-				$.console.debug = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.debug.apply(window.console, arr);
-				};
-			} else {
-				$.console.debug = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
-				};
-			}
-			// Warn
-			if ( typeof window.console.warn !== 'undefined' ) {
-				$.console.warn = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.warn.apply(window.console, arr);
-				};
-			} else {
-				$.console.warn = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
-				};
-			}
-			// Error
-			if ( typeof window.console.error !== 'undefined' ) {
-				$.console.error = function(){
-					var arr = ['An error has occured:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.error.apply(window.console, arr);
-					$.console.trace();
-				};
-			} else {
-				$.console.error = function(){
-					var args = arguments;
-					var arr = ['An error has occured:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
-					$.console.trace();
-				};
-			}
-			// Trace
-			if ( typeof window.console.trace !== 'undefined' ) {
-				$.console.trace = function(){
-				    window.console.trace();
-				};
-			} else {
-				$.console.trace = function(){
-				    window.console.log.apply(window.console, ["Attempted trace... but window.console.trace does not exist."]);
-				};
-			}
-		}
-		else
-		{	// Don't use anything
-			// Prepare
-			$.console = {};
-			// Assign
-			$.log = $.console.log = $.console.debug = $.console.warn = $.console.trace = function(){};
-			$.console.error = function(){
+	if ( typeof window.console !== 'object' || typeof window.console.emulated === 'undefined' ) {
+		// Check to see if console exists
+		if ( typeof window.console !== 'object' || typeof window.console.log !== 'function' ) {
+			// Console does not exist
+			window.console = {};
+			window.console.log = window.console.debug = window.console.warn = window.console.trace = function(){};
+			window.console.error = function(){
 				alert("An error has occured. Please use another browser to obtain more detailed information.");
 			};
 		}
+		else {
+			// Console is object, and log does exist
+			// Check Debug
+			if ( typeof window.console.debug === 'undefined' ) {
+				window.console.debug = function(){
+					var arr = ['console.debug:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.log.apply(window.console, arr);
+				};
+			}
+			// Check Warn
+			if ( typeof window.console.warn === 'undefined' ) {
+				window.console.warn = function(){
+					var arr = ['console.warn:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.log.apply(window.console, arr);
+				};
+			} 
+			// Check Error
+			if ( typeof window.console.error === 'undefined' ) {
+				window.console.error = function(){
+					var arr = ['console.error']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+				    window.console.log.apply(window.console, arr);
+				};
+			}
+			// Check Trace
+			if ( typeof window.console.trace === 'undefined' ) {
+				window.console.trace = function(){
+				    window.console.error.apply(window.console, ['console.trace does not exist']);
+				};
+			}
+		}
+		// We have been emulated
+		window.console.emulated = true;
 	}
 	
 	/**
-	 * Params to JSON
-	 * @copyright Benjamin "balupton" Lupton (MIT Licenced)
+	 * Return a new JSON object of the old string.
+	 * Turning 'a=b&c.e=d' to {a:'b',c:{e:'d'}}
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
 	 */
-	$.params_to_json = $.params_to_json || function ( params )
+	String.prototype.queryStringToJSON = String.prototype.queryStringToJSON || function ( )
 	{	// Turns a params string or url into an array of params
-		// Adjust
-		params = String(params);
+		// Prepare
+		var params = String(this);
 		// Remove url if need be
 		params = params.substring(params.indexOf('?')+1);
 		// params = params.substring(params.indexOf('#')+1);
@@ -141,14 +121,14 @@
 			param = param.split('=');
 			if ( param === null ) { continue; }
 			// ^ We now have "var=blah" into ["var","blah"]
-			
+		
 			// Get
 			var key = param[0] || null;
 			if ( key === null ) { continue; }
 			if ( typeof param[1] === 'undefined' ) { continue; }
 			var value = param[1];
 			// ^ We now have the parts
-			
+		
 			// Fix
 			key = decodeURIComponent(key);
 			value = decodeURIComponent(value);
@@ -158,7 +138,7 @@
 			} catch ( e ) {
 			    // value is a normal string
 			}
-			
+		
 			// Set
 			// console.log({'key':key,'value':value}, split);
 			var keys = key.split('.');
@@ -182,27 +162,58 @@
 		return json;
 	};
 	
+	
 	/**
-	 * Array Remove
-	 * @copyright By John Resig (MIT Licensed)
+	 * Remove a element, or a set of elements from an array
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @copyright John Resig (MIT Licensed)
 	 */
 	Array.prototype.remove = function(from, to) {
 		var rest = this.slice((to || from) + 1 || this.length);
 		this.length = from < 0 ? this.length + from : from;
 		return this.push.apply(this, rest);
 	};
-	
+
 	/**
-	 * ArrayList Functions
-	 * @copyright By Benjamin "balupton" Lupton (MIT Licenced)
+	 * Get a element from an array at [index]
+	 * if [current] is set, then set this index as the current index (we don't care if it doesn't exist)
+	 * @version 1.0.1
+	 * @date July 09, 2010
+	 * @since 1.0.0 June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
 	 */
 	Array.prototype.get = function(index, current) {
-		if ( index === 'first' ) index = 0;
-		else if ( index === 'last' ) index = this.length-1;
-		else if ( !index && index !== 0 ) index = this.index;
-		if ( current !== false ) this.setIndex(index);
-		return this[index] || undefined;
+		// Determine
+		if ( index === 'first' ) {
+			index = 0;
+		} else if ( index === 'last' ) {
+			index = this.length-1;
+		} else if ( index === 'prev' ) {
+			index = this.index-1;
+		} else if ( index === 'next' ) {
+			index = this.index+1;
+		} else if ( !index && index !== 0 ) {
+			index = this.index;
+		}
+	
+		// Set current?
+		if ( current||false !== false ) {
+			this.setIndex(index);
+		}
+	
+		// Return
+		return this.exists(index) ? this[index] : undefined;
 	};
+
+	/**
+	 * Apply the function [fn] to each element in the array
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.each = function(fn){
 		for (var i = 0; i < this.length; ++i) {
 			if (fn(i, this[i], this) === false) 
@@ -210,67 +221,212 @@
 		}
 		return this;
 	}
+
+	/**
+	 * Checks whether the index is a valid index
+	 * @version 1.0.0
+	 * @date July 09, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
+	Array.prototype.validIndex = function(index){
+		return index >= 0 && index < this.length;
+	};
+
+	/**
+	 * Set the current index of the array
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.setIndex = function(index){
-		if ( index < this.length && index >= 0 ) {
+		if ( this.validIndex(index) ) {
 			this.index = index;
 		} else {
 			this.index = null;
 		}
 		return this;
 	};
+
+	/**
+	 * Get the current index of the array
+	 * If [index] is passed then set that as the current, and return it's value
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.current = function(index){
 		return this.get(index, true);
 	};
+
+	/**
+	 * Get whether or not the array is empty
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.isEmpty = function(){
 		return this.length === 0;
 	};
+
+	/**
+	 * Get whether or not the array has only one item
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.isSingle = function(){
 		return this.length === 1;
 	};
-	Array.prototype.isMany = function(){
+
+	/**
+	 * Get whether or not the array is not empty
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
+	Array.prototype.isNotEmpty = function(){
 		return this.length !== 0;
 	};
+
+	/**
+	 * Get whether or not the array has more than one item
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
+	Array.prototype.isNotEmpty = function(){
+		return this.length > 1;
+	};
+
+	/**
+	 * Get whether or not the current index is the last one
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.isLast = function(index){
 		index = typeof index === 'undefined' ? this.index : index;
 		return !this.isEmpty() && index === this.length-1;
 	}
+
+	/**
+	 * Get whether or not the current index is the first one
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.isFirst = function(index){
 		index = typeof index === 'undefined' ? this.index : index;
 		return !this.isEmpty() && index === 0;
 	}
+
+	/**
+	 * Clear the array
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.clear = function(){
 		this.length = 0;
 	};
+
+	/**
+	 * Set the index as the next one, and get the item
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.next = function(update){
 		return this.get(this.index+1, update);
 	};
+
+	/**
+	 * Set the index as the previous one, and get the item
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.prev = function(update){
 		return this.get(this.index-1, update);
 	};
+
+	/**
+	 * Reset the index
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.reset = function(){
 		this.index = null;
 		return this;
 	};
+
+	/**
+	 * Set the [index] to the [item]
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.set = function(index, item){
 		// We want to set the item
 		if ( index < this.length && index >= 0 ) {
 			this[index] = item;
 		} else {
-			$error('index above array length');
-			return false;
+			throw new Error('Array.prototype.set: [index] above this.length');
+			// return false;
 		}
 		return this;
 	};
+
+	/**
+	 * Set the index as the next item, and return it.
+	 * If we reach the end, then start back at the beginning.
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.loop = function(){
 		if ( !this.index && this.index !== 0 ) {
+			// index is not a valid value
 			return this.current(0);
 		}
 		return this.next();
 	};
+
+	/**
+	 * Add the [arguments] to the array
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.add = function(){
 		this.push.apply(this,arguments);
 		return this;
 	};
+
+	/**
+	 * Insert the [item] at the [index] or at the end of the array
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
 	Array.prototype.insert = function(index, item){
 		if ( typeof index !== 'number' ) {
 			index = this.length;
@@ -282,7 +438,37 @@
 		this.push.apply(this, rest);
 		return this;
 	};
-	
+
+	/**
+	 * Get whether or not the index exists in the array
+	 * @version 1.0.0
+	 * @date July 09, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
+	Array.prototype.exists = Array.prototype.exists || function(index){
+		return typeof this[index] !== 'undefined';
+	};
+
+	/**
+	 * Get whether or not the value exists in the array
+	 * @version 1.0.0
+	 * @date June 30, 2010
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 */
+	Array.prototype.has = Array.prototype.has || function(value){
+		var has = false;
+		for ( var i=0, n=this.length; i<n; ++i ) {
+			if ( value == this[i] ) {
+				has = true;
+				break;
+			}
+		}
+		return has;
+	};
+
+
 	// Declare our class
 	$.LightboxClass = function ( )
 	{	// This is the handler for our constructor
@@ -411,7 +597,7 @@
 			about: {
 				text: 	'jQuery Lightbox Plugin (balupton edition)',
 				title:	'Licenced under the GNU Affero General Public License.',
-				link:	'http://github.com/balupton/jquery-lightbox'
+				link:	'http://www.balupton.com/projects/jquery-lightbox'
 			}
 		},
 		
@@ -536,7 +722,7 @@
 					this.files = prepend(this.files, this.baseurl);
 					
 					// Now as we have source, we may have more params
-					options = $.extend(options, $.params_to_json(this.src));
+					options = $.extend(options, this.src.queryStringToJSON());
 				}
 				
 				// Create
@@ -778,8 +964,7 @@
 			},function() { // out
 				$(this).css({ 'background' : 'transparent url(' + $.Lightbox.files.images.blank + ') no-repeat' });
 			}).click(function() {
-				$.Lightbox.images.prev();
-				$.Lightbox.showImage();
+				$.Lightbox.showImage('prev');
 				return false;
 			});
 					
@@ -789,8 +974,7 @@
 			},function() { // out
 				$(this).css({ 'background' : 'transparent url(' + $.Lightbox.files.images.blank + ') no-repeat' });
 			}).click(function() {
-				$.Lightbox.images.next();
-				$.Lightbox.showImage();
+				$.Lightbox.showImage('next');
 				return false;
 			});
 			
@@ -1424,13 +1608,13 @@
 			// Prev?
 			if ( key === this.keys.prev || keycode === 37 )
 			{	// We want previous
-				return $.Lightbox.showImage($.Lightbox.images.prev());
+				return $.Lightbox.showImage('prev');
 			}
 			
 			// Next?
 			if ( key === this.keys.next || keycode === 39 )
 			{	// We want next
-				return $.Lightbox.showImage($.Lightbox.images.next());
+				return $.Lightbox.showImage('next');
 			}
 			
 			// Unknown

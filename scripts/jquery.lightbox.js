@@ -21,7 +21,7 @@
  * @name jquery_lightbox: jquery.lightbox.js
  * @package jQuery Lightbox Plugin (balupton edition)
  * @version 1.3.9-dev
- * @date June 29, 2009
+ * @date June 29, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
@@ -34,153 +34,13 @@
 {	// Create our Plugin function, with $ as the argument (we pass the jQuery object over later)
 	// More info: http://docs.jquery.com/Plugins/Authoring#Custom_Alias
 	
-	/**
-	 * Console Emulator
-	 * @copyright Benjamin "balupton" Lupton (MIT Licenced)
-	 * We have to convert arguments into arrays, and do this explicitly as webkit hates function references, and arguments cannot be passed as is
-	 */
-	if ( typeof $.log === 'undefined' ) {
-		if ( typeof window.console !== 'undefined' && typeof window.console.log === 'function' )
-		{	// Use window.console
-			// Prepare
-			$.console = {};
-			// Log
-			$.console.log = $.log = function(){
-				var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-			    window.console.log.apply(window.console, arr);
-			};
-			// Debug
-			if ( typeof window.console.debug !== 'undefined' ) {
-				$.console.debug = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.debug.apply(window.console, arr);
-				};
-			} else {
-				$.console.debug = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
-				};
-			}
-			// Warn
-			if ( typeof window.console.warn !== 'undefined' ) {
-				$.console.warn = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.warn.apply(window.console, arr);
-				};
-			} else {
-				$.console.warn = function(){
-					var arr = []; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
-				};
-			}
-			// Error
-			if ( typeof window.console.error !== 'undefined' ) {
-				$.console.error = function(){
-					var arr = ['An error has occured:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.error.apply(window.console, arr);
-					$.console.trace();
-				};
-			} else {
-				$.console.error = function(){
-					var args = arguments;
-					var arr = ['An error has occured:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
-					$.console.trace();
-				};
-			}
-			// Trace
-			if ( typeof window.console.trace !== 'undefined' ) {
-				$.console.trace = function(){
-				    window.console.trace();
-				};
-			} else {
-				$.console.trace = function(){
-				    window.console.log.apply(window.console, ["Attempted trace... but window.console.trace does not exist."]);
-				};
-			}
-		}
-		else
-		{	// Don't use anything
-			// Prepare
-			$.console = {};
-			// Assign
-			$.log = $.console.log = $.console.debug = $.console.warn = $.console.trace = function(){};
-			$.console.error = function(){
-				alert("An error has occured. Please use another browser to obtain more detailed information.");
-			};
-		}
-	}
 	
 	/**
-	 * Params to JSON
+	 * String.prototype.queryStringToJSON
+	 * @version 1.0.0
+	 * @date June 30, 2010
 	 * @copyright Benjamin "balupton" Lupton (MIT Licenced)
 	 */
-	$.params_to_json = $.params_to_json || function ( params )
-	{	// Turns a params string or url into an array of params
-		// Adjust
-		params = String(params);
-		// Remove url if need be
-		params = params.substring(params.indexOf('?')+1);
-		// params = params.substring(params.indexOf('#')+1);
-		// Change + to %20, the %20 is fixed up later with the decode
-		params = params.replace(/\+/g, '%20');
-		// Do we have JSON string
-		if ( params.substring(0,1) === '{' && params.substring(params.length-1) === '}' )
-		{	// We have a JSON string
-			return eval(decodeURIComponent(params));
-		}
-		// We have a params string
-		params = params.split(/\&|\&amp\;/);
-		var json = {};
-		// We have params
-		for ( var i = 0, n = params.length; i < n; ++i )
-		{
-			// Adjust
-			var param = params[i] || null;
-			if ( param === null ) { continue; }
-			param = param.split('=');
-			if ( param === null ) { continue; }
-			// ^ We now have "var=blah" into ["var","blah"]
-			
-			// Get
-			var key = param[0] || null;
-			if ( key === null ) { continue; }
-			if ( typeof param[1] === 'undefined' ) { continue; }
-			var value = param[1];
-			// ^ We now have the parts
-			
-			// Fix
-			key = decodeURIComponent(key);
-			value = decodeURIComponent(value);
-			try {
-			    // value can be converted
-			    value = eval(value);
-			} catch ( e ) {
-			    // value is a normal string
-			}
-			
-			// Set
-			// console.log({'key':key,'value':value}, split);
-			var keys = key.split('.');
-			if ( keys.length === 1 )
-			{	// Simple
-				json[key] = value;
-			}
-			else
-			{	// Advanced
-				var path = '';
-				for ( ii in keys )
-				{	//
-					key = keys[ii];
-					path += '.'+key;
-					eval('json'+path+' = json'+path+' || {}');
-				}
-				eval('json'+path+' = value');
-			}
-			// ^ We now have the parts added to your JSON object
-		}
-		return json;
-	};
 	
 	/**
 	 * Array Remove
@@ -194,6 +54,8 @@
 	
 	/**
 	 * ArrayList Functions
+	 * @version 1.0.0
+	 * @date June 30, 2010
 	 * @copyright By Benjamin "balupton" Lupton (MIT Licenced)
 	 */
 	Array.prototype.get = function(index, current) {
@@ -519,7 +381,7 @@
 				// Make sure we found ourselves
 				if ( this.compressed === null )
 				{	// We didn't
-					$.console.error('Lightbox was not able to find it\'s javascript script tag necessary for auto-inclusion.');
+					window.console.error('Lightbox was not able to find it\'s javascript script tag necessary for auto-inclusion.');
 					// We don't work with files anymore, so don't care for domReady
 					domReady = false;
 				}
@@ -594,7 +456,7 @@
 					var image = images.prepare(obj);
 					
 					if ( !image ) {
-						$.console.error('We dont know what we have:', obj, image);
+						window.console.error('We dont know what we have:', obj, image);
 					} else {
 						images.push(image);
 					}
@@ -883,14 +745,14 @@
 			// Do we need to bother
 			if ( this.images.isEmpty() ) {
 				// No images
-				$.console.warn('WARNING', 'Lightbox started, but no images: ', image, images);
+				window.console.warn('WARNING', 'Lightbox started, but no images: ', image, images);
 				return false;
 			}
 			
 			// Set current
 			if ( !this.images.current(image) ) {
 				// No images
-				$.console.warn('WARNING', 'Could not find current image: ', image, this.images);
+				window.console.warn('WARNING', 'Could not find current image: ', image, this.images);
 				return false;
 			}
 			
@@ -1000,7 +862,7 @@
 			var image = this.images.current();
 			if ( !image || !image.width || !this.visible )
 			{	// No image or no visible lightbox, so we don't care
-				//$.console.warn('A resize occured while no image or no lightbox...');
+				//window.console.warn('A resize occured while no image or no lightbox...');
 				return false;
 			}
 			
@@ -1353,7 +1215,7 @@
 				// ---------------------------------
 				// Error handling
 				default:
-					$.console.error('Don\'t know what to do: ', image, step);
+					window.console.error('Don\'t know what to do: ', image, step);
 					return this.showImage(image, 1);
 					// break;
 				

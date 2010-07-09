@@ -11,10 +11,10 @@
  * Texts.  A copy of the license is included in the section entitled "GNU
  * Free Documentation License".
  *
- * @name jquery_lightbox: jquery.lightbox.js
+ * @name jquery-lightbox
  * @package jQuery Lightbox Plugin (balupton edition)
- * @version v1.3.10-dev
- * @date June 29, 2010
+ * @version v2.0.0-dev
+ * @date June 30, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}

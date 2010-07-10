@@ -13,8 +13,8 @@
  *
  * @name readme
  * @package jquery-lightbox
- * @version v1.4.3-beta
- * @date July 09, 2010
+ * @version v1.4.4-beta
+ * @date July 10, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
@@ -24,11 +24,11 @@
 ----
 
 Installation:
-Upload the jquery_lightbox directory to somewhere on your webserver, then include the following into your webpages html head:
+Upload the jquery-lightbox directory to somewhere on your webserver, then include the following into your website's HTML HEAD:
 	<!-- Include jQuery (Lightbox Requirement) -->
-	<script type="text/javascript" src="jquery_lightbox/scripts/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery-1.4.2.min.js"></script>
 	<!-- Include Lightbox (Production) -->
-	<script type="text/javascript" src="jquery_lightbox/scripts/jquery.lightbox.min.js"></script>
+	<script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery.lightbox.min.js"></script>
 adjusting the src locations appropriately.
 
 Usage:
@@ -156,15 +156,29 @@ How to apply options?
 	Use the below examples to derive how it is used to hide the linkback, and translate "Image" to "Photo".
 	
 	Link method:
-		<script type="text/javascript" src="jquery_lightbox/scripts/jquery.lightbox.min.js?show_linkback=false&amp;text.image=Photo"></script>
+		<script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery.lightbox.min.js?show_linkback=false&amp;text.image=Photo"></script>
 		
 	Constructor method:
-		<script type="text/javascript" src="jquery_lightbox/scripts/jquery.lightbox.min.js"></script>
+		<script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery.lightbox.min.js"></script>
 		<script type="text/javascript">$(function(){
 			$.Lightbox.construct({
-				show_linkback:	false,
-				text: {
-					image:		'Photo'
+				"show_linkback":	false,
+				"text": {
+					// For translating
+					"image":		"Image",
+					"of":			"of",
+					"close":		"Close X",
+					"closeInfo":	"You can also click anywhere outside the image to close.",
+					"download":		"Download.",
+					"help": {
+						"close":	"Click to close",
+						"interact":	"Hover to interact"
+					},
+					"about": {
+						"text": 	"jQuery Lightbox Plugin (balupton edition)",
+						"title":	"Licenced under the GNU Affero General Public License.",
+						"link":		"http://www.balupton.com/projects/jquery-lightbox"
+					}
 				}
 			});
 		});</script>
@@ -174,27 +188,32 @@ How to apply options?
 
 Changelog:
 
-v1.4.3-beta (July 09, 2009)
+v1.4.4-beta (July 10, 2010)
+- Fixed translate about link to new one
+- Fixed changelog dates
+- Improved demo and readme to say somewhere on your website, rather than your websites root/home folder.
+
+v1.4.3-beta (July 09, 2010)
 - Fixed left and right keyboard buttons
 - Added Checklist
 - Updated sparkle dependencies
 - Fixed some typos with the documentation. And added link to the wordpress plugin at the top (as well as bottom).
 - Updated linkback and other similar links to balupton site, rather than github site
 
-v1.4.2-beta (June 29, 2009)
+v1.4.2-beta (June 29, 2010)
 - Forgot to remake
 
-v1.4.1-beta (June 29, 2009)
+v1.4.1-beta (June 29, 2010)
 - Documentation links now point to correct new locations
 - Fixed incorrect demo header
 - Added support link to demo page
 
-v1.4.0-beta (June 29, 2009)
+v1.4.0-beta (June 29, 2010)
 - Fixed up $.console, was causing issues in chrome
 - Updated demo for use with new style. Removed adsense.
 - Essentially v1.3.9-dev with one fix and nicer demo.
 
-v1.3.9-dev (June 27, 2009)
+v1.3.9-dev (June 27, 2010)
 - js to scripts, css to styles
 - We now use google closure for js, and yui compressor for css
 - Added Makefile to handle compression
@@ -203,7 +222,7 @@ v1.3.9-dev (June 27, 2009)
 - Fixed "Image NaN of X" issue
 - Fixed download link still working even on download_link=false - jsma http://bit.ly/beuoBD
 
-v1.3.8-dev
+v1.3.8-dev (???)
 - Clean of $.Lightbox.images
 
 v1.3.7-final (April 25, 2009)

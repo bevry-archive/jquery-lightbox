@@ -20,8 +20,8 @@
  *
  * @name jquery.lightbox.js
  * @package jquery-lightbox
- * @version 1.4.3-beta
- * @date July 09, 2009
+ * @version 1.4.4-beta
+ * @date July 10, 2009
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}

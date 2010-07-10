@@ -16,7 +16,7 @@
 		<!-- Include Lightbox (Production, No linkback) -->
 		<!--<script type="text/javascript" src="../scripts/jquery.lightbox.min.js?show_linkback=false"></script>-->
 		<!-- Include Lightbox (Production, Manual baseurl) -->
-		<!--<script type="text/javascript" src="../scripts/jquery.lightbox.min.js?baseurl=http://www.your.com/baseurl/jquery_lightbox/"></script>-->
+		<!--<script type="text/javascript" src="../scripts/jquery.lightbox.min.js?baseurl=http://www.your.com/baseurl/jquery-lightbox/"></script>-->
 		<!-- Include Lightbox (Production, Disable scrolling) -->
 		<!--<script type="text/javascript" src="../scripts/jquery.lightbox.min.js?scroll=disabled"></script>-->
 		<!-- Include Lightbox (Production, colorBlend forced support) -->
@@ -110,21 +110,21 @@
 			
 			<h2>Step 1. Download jQuery Lightbox, and extract it to your hard drive</h2>
 			
-			<h2>Step 2. Move the extracted <code>jquery-lightbox</code> directory to your website's root/home folder</h2>
+			<h2>Step 2. Move the extracted <code>jquery-lightbox</code> directory to somewhere on your webserver</h2>
 			<p>If all the files were extracted without being in a directory, create a new directory called <code>jquery-lightbox</code> and place the extracted files in that.</p>
 				
 			<h2>Step 3. Include jQuery (insert into your page's head tag)</h2>
 			<p>If your page already has jQuery included, you can skip this step.</p>
 			<code class="code language-html">
 				&lt;!-- Include jQuery (Lightbox Requirement) --&gt;
-				&lt;script type="text/javascript" src="http://www.yoursite.com/jquery-lightbox/scripts/jquery-1.4.2.min.js"&gt;&lt;/script&gt;
+				&lt;script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery-1.4.2.min.js"&gt;&lt;/script&gt;
 			</code>
 			
 			<h2>Step 4. Include jQuery Lightbox (insert into your page's head tag)</h2>
 			<p>We will auto include everything else for you, so you only have to insert the below into your head tag.</p>
 			<code class="code language-html">
 				&lt;!-- Include Lightbox (Production) --&gt;
-				&lt;script type="text/javascript" src="http://www.yoursite.com/jquery-lightbox/scripts/jquery.lightbox.min.js"&gt;&lt;/script&gt;
+				&lt;script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery.lightbox.min.js"&gt;&lt;/script&gt;
 			</code>
 		</div>
 		
@@ -197,7 +197,7 @@
 			<p>The first and simplest way we can do it, is to use a url variable. So alter our jQuery Lightbox include in step 4 to:</p>
 			<code class="code language-html">
 				&lt;!-- Include Lightbox (Production) --&gt;
-				&lt;script type="text/javascript" src="http://www.yoursite.com/jquery-lightbox/scripts/jquery.lightbox.min.js?show_linkback=false"&gt;&lt;/script&gt;
+				&lt;script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery.lightbox.min.js?show_linkback=false"&gt;&lt;/script&gt;
 			</code>
 			<p>The other more complicated way (which is sometimes preferable) is to set the option via javascript. Like so:</p>
 			<code class="code language-html">
@@ -228,7 +228,7 @@
 							"about": {
 								"text": 	"jQuery Lightbox Plugin (balupton edition)",
 								"title":	"Licenced under the GNU Affero General Public License.",
-								"link":		"http://jquery.com/plugins/project/jquerylightbox_bal"
+								"link":		"http://www.balupton.com/projects/jquery-lightbox"
 							}
 						}
 					});

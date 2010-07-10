@@ -27,7 +27,10 @@ build:
 	mkdir $(BUILDDIR) $(CLOSUREDIR) $(YUIDIR);
 	cd $(CLOSUREDIR); wget -q $(CLOSUREURL) -O file.zip; tar -xf file.zip;
 	cd $(YUIDIR); wget -q $(YUIURL) -O file.zip; tar -xf file.zip;
-	
+
+add:
+	git add CHECKLIST.txt COPYING.txt demo FDL.txt images Makefile README.txt scripts styles
+
 clean:
 	rm -Rf ./build;
 	

@@ -3,7 +3,7 @@
 MAKEFLAGS = --no-print-directory --always-make
 MAKE = make $(MAKEFLAGS)
 
-BUILDDIR = ./build
+BUILDDIR = ./.build
 
 CLOSUREURL = http://closure-compiler.googlecode.com/files/compiler-latest.zip
 CLOSUREDIR = $(BUILDDIR)/closure
@@ -19,21 +19,22 @@ OUTCSS = ./styles/jquery.lightbox.min.css
 
 all:
 	$(MAKE) build;
-	$(MAKE) compress;
-	$(MAKE) clean;
-
-build:
-	$(MAKE) clean;
-	mkdir $(BUILDDIR) $(CLOSUREDIR) $(YUIDIR);
-	cd $(CLOSUREDIR); wget -q $(CLOSUREURL) -O file.zip; tar -xf file.zip;
-	cd $(YUIDIR); wget -q $(YUIURL) -O file.zip; tar -xf file.zip;
-
-add:
-	git add CHECKLIST.txt COPYING.txt demo FDL.txt images Makefile README.txt scripts styles
 
 clean:
 	rm -Rf ./build;
 	
+build-update:
+	$(MAKE) clean;
+	mkdir $(BUILDDIR) $(CLOSUREDIR) $(YUIDIR);
+	cd $(CLOSUREDIR); wget -q $(CLOSUREURL) -O file.zip; tar -xf file.zip;
+	cd $(YUIDIR); wget -q $(YUIURL) -O file.zip; tar -xf file.zip;
+	
+build:
+	$(MAKE) compress;
+
+add:
+	git add .gitignore CHECKLIST.txt COPYING.txt demo FDL.txt images Makefile README.txt scripts styles
+
 compress:
 	java -jar $(CLOSUREFILE) --js_output_file=$(OUTJS) --js=$(INJS);
 	java -jar $(YUIFILE) $(INCSS) -o $(OUTCSS);

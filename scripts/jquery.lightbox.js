@@ -20,8 +20,8 @@
  *
  * @name jquery.lightbox.js
  * @package jquery-lightbox
- * @version 1.4.4-beta
- * @date July 10, 2009
+ * @version 1.4.5-beta
+ * @date July 13, 2009
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
@@ -705,7 +705,7 @@
 				// Make sure we found ourselves
 				if ( this.compressed === null )
 				{	// We didn't
-					$.console.error('Lightbox was not able to find it\'s javascript script tag necessary for auto-inclusion.');
+					window.console.error('Lightbox was not able to find it\'s javascript script tag necessary for auto-inclusion.');
 					// We don't work with files anymore, so don't care for domReady
 					domReady = false;
 				}
@@ -780,7 +780,7 @@
 					var image = images.prepare(obj);
 					
 					if ( !image ) {
-						$.console.error('We dont know what we have:', obj, image);
+						window.console.error('We dont know what we have:', obj, image);
 					} else {
 						images.push(image);
 					}
@@ -883,6 +883,7 @@
 			}
 			
 			// Include javascripts
+			delete scripts.lightbox; // prevent us from including ourself
 			for ( script in scripts )
 			{
 				var scriptEl = document.createElement('script');
@@ -1067,14 +1068,14 @@
 			// Do we need to bother
 			if ( this.images.isEmpty() ) {
 				// No images
-				$.console.warn('WARNING', 'Lightbox started, but no images: ', image, images);
+				window.console.warn('WARNING', 'Lightbox started, but no images: ', image, images);
 				return false;
 			}
 			
 			// Set current
 			if ( !this.images.current(image) ) {
 				// No images
-				$.console.warn('WARNING', 'Could not find current image: ', image, this.images);
+				window.console.warn('WARNING', 'Could not find current image: ', image, this.images);
 				return false;
 			}
 			
@@ -1184,7 +1185,7 @@
 			var image = this.images.current();
 			if ( !image || !image.width || !this.visible )
 			{	// No image or no visible lightbox, so we don't care
-				//$.console.warn('A resize occured while no image or no lightbox...');
+				//window.console.warn('A resize occured while no image or no lightbox...');
 				return false;
 			}
 			
@@ -1537,7 +1538,7 @@
 				// ---------------------------------
 				// Error handling
 				default:
-					$.console.error('Don\'t know what to do: ', image, step);
+					window.console.error('Don\'t know what to do: ', image, step);
 					return this.showImage(image, 1);
 					// break;
 				

@@ -13,8 +13,8 @@
  *
  * @name readme
  * @package jquery-lightbox
- * @version v1.4.4-beta
- * @date July 10, 2010
+ * @version v1.4.5-beta
+ * @date July 12, 2010
  * @category jQuery plugin
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
@@ -187,6 +187,10 @@ How to apply options?
 ----
 
 Changelog:
+
+v1.4.5-beta (July 12, 2010)
+- Fixed $.console undefined - As we now use window.console
+- Fixed jquery.lightbox[.min].js being included twice
 
 v1.4.4-beta (July 10, 2010)
 - Fixed translate about link to new one

@@ -19,18 +19,33 @@ Array.prototype.remove = function(from, to) {
 /**
  * Get a element from an array at [index]
  * if [current] is set, then set this index as the current index (we don't care if it doesn't exist)
- * @version 1.0.0
- * @date June 30, 2010
+ * @version 1.0.1
+ * @date July 09, 2010
+ * @since 1.0.0 June 30, 2010
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  */
 Array.prototype.get = function(index, current) {
-	if ( index === 'first' ) index = 0;
-	else if ( index === 'last' ) index = this.length-1;
-	else if ( !index && index !== 0 ) index = this.index;
-	var result = this[index] || undefined;
-	if ( current !== false ) this.setIndex(index);
-	return result;
+	// Determine
+	if ( index === 'first' ) {
+		index = 0;
+	} else if ( index === 'last' ) {
+		index = this.length-1;
+	} else if ( index === 'prev' ) {
+		index = this.index-1;
+	} else if ( index === 'next' ) {
+		index = this.index+1;
+	} else if ( !index && index !== 0 ) {
+		index = this.index;
+	}
+	
+	// Set current?
+	if ( current||false !== false ) {
+		this.setIndex(index);
+	}
+	
+	// Return
+	return this.exists(index) ? this[index] : undefined;
 };
 
 /**
@@ -49,6 +64,17 @@ Array.prototype.each = function(fn){
 }
 
 /**
+ * Checks whether the index is a valid index
+ * @version 1.0.0
+ * @date July 09, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+Array.prototype.validIndex = function(index){
+	return index >= 0 && index < this.length;
+};
+
+/**
  * Set the current index of the array
  * @version 1.0.0
  * @date June 30, 2010
@@ -56,7 +82,7 @@ Array.prototype.each = function(fn){
  * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  */
 Array.prototype.setIndex = function(index){
-	if ( index < this.length && index >= 0 ) {
+	if ( this.validIndex(index) ) {
 		this.index = index;
 	} else {
 		this.index = null;
@@ -255,14 +281,24 @@ Array.prototype.insert = function(index, item){
 };
 
 /**
- * Get whether or not hte value exists in the array
+ * Get whether or not the index exists in the array
+ * @version 1.0.0
+ * @date July 09, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+Array.prototype.exists = Array.prototype.exists || function(index){
+	return typeof this[index] !== 'undefined';
+};
+
+/**
+ * Get whether or not the value exists in the array
  * @version 1.0.0
  * @date June 30, 2010
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  */
 Array.prototype.has = Array.prototype.has || function(value){
-	// Is the value in the array?
 	var has = false;
 	for ( var i=0, n=this.length; i<n; ++i ) {
 		if ( value == this[i] ) {
@@ -271,8 +307,250 @@ Array.prototype.has = Array.prototype.has || function(value){
 		}
 	}
 	return has;
-};/**
- * @depends jquery
+};
+/**
+ * @depends nothing
+ * @name core.console
+ * @package jquery-sparkle
+ */
+
+/**
+ * Console Emulator
+ * We have to convert arguments into arrays, and do this explicitly as webkit (chrome) hates function references, and arguments cannot be passed as is
+ * @version 1.0.1
+ * @since 1.0.0 June 20, 2010
+ * @date July 09, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+if ( typeof window.console !== 'object' || typeof window.console.emulated === 'undefined' ) {
+	// Check to see if console exists
+	if ( typeof window.console !== 'object' || typeof window.console.log !== 'function' ) {
+		// Console does not exist
+		window.console = {};
+		window.console.log = window.console.debug = window.console.warn = window.console.trace = function(){};
+		window.console.error = function(){
+			alert("An error has occured. Please use another browser to obtain more detailed information.");
+		};
+	}
+	else {
+		// Console is object, and log does exist
+		// Check Debug
+		if ( typeof window.console.debug === 'undefined' ) {
+			window.console.debug = function(){
+				var arr = ['console.debug:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+			    window.console.log.apply(window.console, arr);
+			};
+		}
+		// Check Warn
+		if ( typeof window.console.warn === 'undefined' ) {
+			window.console.warn = function(){
+				var arr = ['console.warn:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+			    window.console.log.apply(window.console, arr);
+			};
+		} 
+		// Check Error
+		if ( typeof window.console.error === 'undefined' ) {
+			window.console.error = function(){
+				var arr = ['console.error']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
+			    window.console.log.apply(window.console, arr);
+			};
+		}
+		// Check Trace
+		if ( typeof window.console.trace === 'undefined' ) {
+			window.console.trace = function(){
+			    window.console.error.apply(window.console, ['console.trace does not exist']);
+			};
+		}
+	}
+	// We have been emulated
+	window.console.emulated = true;
+}/**
+ * @depends nothing
+ * @name core.string
+ * @package jquery-sparkle
+ */
+
+/**
+ * Return a new string with any spaces trimmed the left and right of the string
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.trim = String.prototype.trim || function() {
+	// Trim off any whitespace from the front and back
+	return this.replace(/^\s+|\s+$/g, '');
+};
+
+/**
+ * Return a new string with the value stripped from the left and right of the string
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.strip = String.prototype.strip || function(value){
+	// Strip a value from left and right
+	value = String(value);
+	var str = this.replace(eval('/^'+value+'+|'+value+'+$/g'), '');
+	return String(str);
+}
+
+/**
+ * Return a new string with the value stripped from the left of the string
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.stripLeft = String.prototype.stripLeft || function(value){
+	// Strip a value from the left
+	value = String(value);
+	var str = this.replace(eval('/^'+value+'+/g'), '');
+	return String(str);
+}
+
+/**
+ * Return a new string with the value stripped from the right of the string
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.stripRight = String.prototype.stripRight || function(value){
+	// Strip a value from the right
+	value = String(value);
+	var str = this.replace(eval('/'+value+'+$/g'), '');
+	return String(str);
+}
+
+/**
+ * Return a int of the string
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.toInt = String.prototype.toInt || function(){
+	// Convert to a Integer
+	return parseInt(this,10);
+};
+
+/**
+ * Return a new string of the old string wrapped with the start and end values
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.wrap = String.prototype.wrap || function(start,end){
+	// Wrap the string
+	return start+this+end;
+};
+
+/**
+ * Return a new string of a selection of the old string wrapped with the start and end values
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.wrapSelection = String.prototype.wrapSelection || function(start,end,a,z){
+	// Wrap the selection
+	if ( typeof a === 'undefined' || a === null ) a = this.length;
+	if ( typeof z === 'undefined' || z === null ) z = this.length;
+	return this.substring(0,a)+start+this.substring(a,z)+end+this.substring(z);
+};
+
+/**
+ * Return a new string of the slug of the old string
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.toSlug = String.prototype.toSlug || function(){
+	// Convert a string to a slug
+	return this.toLowerCase().replace(/[\s_]/g, '-').replace(/[^-a-z0-9]/g, '').replace(/--+/g, '-');
+}
+
+/**
+ * Return a new JSON object of the old string.
+ * Turning 'a=b&c.e=d' to {a:'b',c:{e:'d'}}
+ * @version 1.0.0
+ * @date June 30, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+String.prototype.queryStringToJSON = String.prototype.queryStringToJSON || function ( )
+{	// Turns a params string or url into an array of params
+	// Prepare
+	var params = String(this);
+	// Remove url if need be
+	params = params.substring(params.indexOf('?')+1);
+	// params = params.substring(params.indexOf('#')+1);
+	// Change + to %20, the %20 is fixed up later with the decode
+	params = params.replace(/\+/g, '%20');
+	// Do we have JSON string
+	if ( params.substring(0,1) === '{' && params.substring(params.length-1) === '}' )
+	{	// We have a JSON string
+		return eval(decodeURIComponent(params));
+	}
+	// We have a params string
+	params = params.split(/\&|\&amp\;/);
+	var json = {};
+	// We have params
+	for ( var i = 0, n = params.length; i < n; ++i )
+	{
+		// Adjust
+		var param = params[i] || null;
+		if ( param === null ) { continue; }
+		param = param.split('=');
+		if ( param === null ) { continue; }
+		// ^ We now have "var=blah" into ["var","blah"]
+		
+		// Get
+		var key = param[0] || null;
+		if ( key === null ) { continue; }
+		if ( typeof param[1] === 'undefined' ) { continue; }
+		var value = param[1];
+		// ^ We now have the parts
+		
+		// Fix
+		key = decodeURIComponent(key);
+		value = decodeURIComponent(value);
+		try {
+		    // value can be converted
+		    value = eval(value);
+		} catch ( e ) {
+		    // value is a normal string
+		}
+		
+		// Set
+		// console.log({'key':key,'value':value}, split);
+		var keys = key.split('.');
+		if ( keys.length === 1 )
+		{	// Simple
+			json[key] = value;
+		}
+		else
+		{	// Advanced
+			var path = '';
+			for ( ii in keys )
+			{	//
+				key = keys[ii];
+				path += '.'+key;
+				eval('json'+path+' = json'+path+' || {}');
+			}
+			eval('json'+path+' = value');
+		}
+		// ^ We now have the parts added to your JSON object
+	}
+	return json;
+};
+/**
+ * @depends jquery, core.console
  * @name jquery.balclass
  * @package jquery-sparkle
  */
@@ -284,21 +562,28 @@ Array.prototype.has = Array.prototype.has || function(value){
 	
 	/**
 	 * BalClass
-	 * @version 1.0.0
-	 * @date June 30, 2010
+	 * @version 1.2.0
+	 * @date July 11, 2010
+	 * @since 1.0.0, June 30, 2010
  	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  	 * @license GNU Affero General Public License - {@link http://www.gnu.org/licenses/agpl.html}
 	 */
 	if ( !($.BalClass||false) ) {
-		$.BalClass = function(config){
-			this.construct(config);
+		// Constructor
+		$.BalClass = function(config,extend){
+			this.construct(config,extend);
 		};
+		// Prototype
 		$.extend($.BalClass.prototype, {
 			config: {
-				'default': {}
 			},
-			construct: function(config){
-				this.configure(config);
+			construct: function(config,extend){
+				var Me = this;
+				Me.configure(config);
+				$.extend(Me,extend||{});
+				if ( typeof Me.built === 'function' ) {
+					return Me.built();
+				}
 				return true;
 			},
 			configure: function(config){
@@ -306,6 +591,23 @@ Array.prototype.has = Array.prototype.has || function(value){
 				Me.config = Me.config||{};
 				Me.config = $.extend({},Me.config,config||{}); // we want to clone
 				return Me;
+			},
+			clone: function(extend){
+				// Clone a BalClass (Creates a new BalClass type)
+				var Me = this;
+				var clone = function(config){
+					this.construct(config);
+				};
+				$.extend(true, clone.prototype, Me.prototype, extend||{});
+				clone.clone = Me.prototype.clone;
+				clone.create = Me.prototype.create;
+				return clone;
+			},
+			create: function(config,extend){
+				// Create a BalClass (Creates a new instance of a BalClass)
+				var Me = this;
+				var Obj = new Me(config,extend);
+				return Obj;
 			},
 			addConfig: function(name, config){
 				var Me = this;
@@ -365,6 +667,11 @@ Array.prototype.has = Array.prototype.has || function(value){
 				return Me.applyConfig('default',config);
 			}
 		});
+		// Instance
+		$.BalClass.clone = $.BalClass.prototype.clone;
+		$.BalClass.create = $.BalClass.prototype.create;
+		// ^ we alias these as they should be both in prototype and instance
+		//   however we do not want to create a full instance yet...
 	}
 	else {
 		console.warn("$.BalClass has already been defined...");

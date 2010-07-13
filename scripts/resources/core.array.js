@@ -19,18 +19,33 @@ Array.prototype.remove = function(from, to) {
 /**
  * Get a element from an array at [index]
  * if [current] is set, then set this index as the current index (we don't care if it doesn't exist)
- * @version 1.0.0
- * @date June 30, 2010
+ * @version 1.0.1
+ * @date July 09, 2010
+ * @since 1.0.0 June 30, 2010
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  */
 Array.prototype.get = function(index, current) {
-	if ( index === 'first' ) index = 0;
-	else if ( index === 'last' ) index = this.length-1;
-	else if ( !index && index !== 0 ) index = this.index;
-	var result = this[index] || undefined;
-	if ( current !== false ) this.setIndex(index);
-	return result;
+	// Determine
+	if ( index === 'first' ) {
+		index = 0;
+	} else if ( index === 'last' ) {
+		index = this.length-1;
+	} else if ( index === 'prev' ) {
+		index = this.index-1;
+	} else if ( index === 'next' ) {
+		index = this.index+1;
+	} else if ( !index && index !== 0 ) {
+		index = this.index;
+	}
+	
+	// Set current?
+	if ( current||false !== false ) {
+		this.setIndex(index);
+	}
+	
+	// Return
+	return this.exists(index) ? this[index] : undefined;
 };
 
 /**
@@ -49,6 +64,17 @@ Array.prototype.each = function(fn){
 }
 
 /**
+ * Checks whether the index is a valid index
+ * @version 1.0.0
+ * @date July 09, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+Array.prototype.validIndex = function(index){
+	return index >= 0 && index < this.length;
+};
+
+/**
  * Set the current index of the array
  * @version 1.0.0
  * @date June 30, 2010
@@ -56,7 +82,7 @@ Array.prototype.each = function(fn){
  * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  */
 Array.prototype.setIndex = function(index){
-	if ( index < this.length && index >= 0 ) {
+	if ( this.validIndex(index) ) {
 		this.index = index;
 	} else {
 		this.index = null;
@@ -255,14 +281,24 @@ Array.prototype.insert = function(index, item){
 };
 
 /**
- * Get whether or not hte value exists in the array
+ * Get whether or not the index exists in the array
+ * @version 1.0.0
+ * @date July 09, 2010
+ * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+ * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+ */
+Array.prototype.exists = Array.prototype.exists || function(index){
+	return typeof this[index] !== 'undefined';
+};
+
+/**
+ * Get whether or not the value exists in the array
  * @version 1.0.0
  * @date June 30, 2010
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
  */
 Array.prototype.has = Array.prototype.has || function(value){
-	// Is the value in the array?
 	var has = false;
 	for ( var i=0, n=this.length; i<n; ++i ) {
 		if ( value == this[i] ) {

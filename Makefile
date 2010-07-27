@@ -22,7 +22,7 @@ demo:
 	open ./demo/index.html
 
 add:
-	git add .gitignore CHECKLIST.txt COPYING.txt demo FDL.txt images Makefile README.txt scripts styles
+	git add .gitignore CHECKLIST.* COPYING.* demo FDL.txt images Makefile README.* scripts styles
 
 push:
 	git push --all ; git push --tags ;

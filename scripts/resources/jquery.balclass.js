@@ -1,7 +1,7 @@
 /**
  * @depends jquery, core.console
  * @name jquery.balclass
- * @package jquery-sparkle
+ * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
  */
 
 /**
@@ -14,8 +14,10 @@
 	 * @version 1.2.0
 	 * @date July 11, 2010
 	 * @since 1.0.0, June 30, 2010
- 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
- 	 * @license GNU Affero General Public License - {@link http://www.gnu.org/licenses/agpl.html}
+     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	if ( !($.BalClass||false) ) {
 		// Constructor
@@ -123,7 +125,7 @@
 		//   however we do not want to create a full instance yet...
 	}
 	else {
-		console.warn("$.BalClass has already been defined...");
+		window.console.warn("$.BalClass has already been defined...");
 	}
 
 

@@ -22,7 +22,7 @@ demo:
 	open ./demo/index.html
 
 add:
-	git add .gitignore CHECKLIST.* COPYING.* demo FDL.txt images Makefile README.* scripts styles
+	git add .gitignore CHECKLIST.* COPYING.* demo Makefile README.* scripts
 
 push:
 	git push --all ; git push --tags ;
@@ -35,20 +35,25 @@ refresh:
 	wget -q http://github.com/balupton/jquery-sparkle/raw/master/scripts/resources/core.array.js -O scripts/resources/core.array.js ;
 	wget -q http://github.com/balupton/jquery-sparkle/raw/master/scripts/resources/core.console.js -O scripts/resources/core.console.js ;
 	wget -q http://github.com/balupton/jquery-sparkle/raw/master/scripts/resources/core.string.js -O scripts/resources/core.string.js ;
+	wget -q http://github.com/balupton/jquery-sparkle/raw/master/scripts/resources/jquery.events.js -O scripts/resources/jquery.events.js ;
+	wget -q http://github.com/balupton/jquery-sparkle/raw/master/scripts/resources/jquery.extra.js -O scripts/resources/jquery.extra.js ;
 	wget -q http://github.com/balupton/jquery-sparkle/raw/master/scripts/resources/jquery.balclass.js -O scripts/resources/jquery.balclass.js ;
 
 
 pack:
 	cat \
-		./scripts/resources/core.array.js \
+		./scripts/resources/core.console.js \
 		./scripts/resources/core.console.js \
 		./scripts/resources/core.string.js \
+		./scripts/resources/jquery.events.js \
+		./scripts/resources/jquery.extra.js \
+		./scripts/resources/jquery.color.js \
 		./scripts/resources/jquery.balclass.js \
 		./scripts/resources/jquery.balclass.lightbox.js \
 		> ./scripts/jquery.lightbox.js;
-		
+
 compress:
-	java -jar $(CLOSUREFILE) --js_output_file=./scripts/jquery.lightbox.min.js --js=./scripts/jquery.lightbox.js;
+	java -jar $(CLOSUREFILE) --create_source_map ./scripts/closure.map --js_output_file=./scripts/jquery.lightbox.min.js --js=./scripts/jquery.lightbox.js;
 	java -jar $(YUIFILE) ./styles/jquery.lightbox.css -o ./styles/jquery.lightbox.min.css
 
 build:

@@ -1,31 +1,31 @@
 /**
- * jQuery Lightbox Plugin (balupton edition) - Lightboxes for jQuery
+ * This file is part of jQuery Lightbox
  * Copyright (C) 2007-2010 Benjamin Arthur Lupton
  * http://www.balupton.com/projects/jquery-lightbox
  *
- * This file is part of jQuery Lightbox (balupton edition).
+ * jQuery Lightbox is free software; You can redistribute it and/or modify it under the terms of
+ * the GNU Affero General Public License version 3 as published by the Free Software Foundation.
+ * You don't have to do anything special to accept the license and you don’t have to notify
+ * anyone which that you have made that decision.
  * 
- * jQuery Lightbox (balupton edition) is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
+ * jQuery Lightbox is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See your chosen license for more details.
  * 
- * jQuery Lightbox (balupton edition) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
+ * You should have received along with jQuery Lightbox:
+ * - A copy of the license used.
+ *   If not, see <http://www.gnu.org/licenses/agpl-3.0.html>.
+ * - A copy of our interpretation of the license used.
+ *   If not, see <http://github.com/balupton/jquery-lightbox/blob/master/COPYING.txt>.
  * 
- * You should have received a copy of the GNU Affero General Public License
- * along with jQuery Lightbox (balupton edition).  If not, see <http://www.gnu.org/licenses/>.
- *
- * @name jquery.lightbox.js
- * @package jquery-lightbox
- * @version 1.4.5-beta
- * @date July 13, 2009
- * @category jQuery plugin
+ * @version 1.4.6-final
+ * @date July 28, 2010
+ * @since v0.1.0-dev, December 3, 2007
+ * @category jquery-plugin
+ * @package jquery-lightbox {@link http://www.balupton/projects/jquery-lightbox}
  * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
  * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
- * @license GNU Affero General Public License - {@link http://www.gnu.org/licenses/agpl.html}
+ * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
  * @example Visit {@link http://www.balupton.com/projects/jquery-lightbox} for more information.
  */
 

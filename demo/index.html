@@ -24,14 +24,20 @@
 		<!-- Include Lightbox (Production, No linkback + Disable scrolling) -->
 		<!--<script type="text/javascript" src="../scripts/jquery.lightbox.min.js?show_linkback=false&amp;scroll=disabled"></script>-->
 		
+		<!-- Include The Demo's Requirements -->
+		<link type="text/css" rel="stylesheet" media="screen" href="./styles/style.css" />
+    </head>
+    <body>
 		<!-- Include this demo's requirements -->
-		<link type="text/css" rel="stylesheet" media="screen" href="./styles/index.css" />
-		<script type="text/javascript" src="./scripts/jquery.beautyOfCode.min.js"></script>
+		<!-- Include jQuery Syntax Highlighter -->
+		<script type="text/javascript" src="http://github.com/balupton/jQuery-SyntaxHighlighter/raw/master/scripts/jquery.syntaxhighlighter.min.js"></script>
+		<!-- Initialise jQuery Syntax Highlighter -->
 		<script type="text/javascript">/*<![CDATA[*/
-			$.beautyOfCode.init({
-				defaults: { gutter: true },
-				brushes: ["Xml", "JScript", "Css"]
-			}); 
+			$.SyntaxHighlighter.init({
+				'defaults': {
+					'toolbar':false
+				}
+			});
 		/*]]>*/</script>
 		
 		<!-- GetSatisfaction -->
@@ -39,8 +45,6 @@
 		<script type="text/javascript">/*<![CDATA[*/
 		var GSFN_feedback_widget = new GSFN.feedback_widget({ display: 'overlay', company: 'balupton', placement: 'right', color: '#222', style: 'question' });
 		/*]]>*/</script> 
-    </head>
-    <body>
 		
 		<div class="section">
 			<h1>jQuery Lightbox (balupton edition)</h1>

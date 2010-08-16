@@ -29,14 +29,14 @@
  * @example Visit {@link http://jquery.com/plugins/project/jquerylightbox_bal} for more information.
  */
 
-html, body { margin: 0; padding: 0; height: 100%;}
+html, body { margin: 0; padding: 0; height: 100%; }
 
 #lightbox, #lightbox-overlay {
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
-	bottom:auto;
-	right:auto;
+	bottom: 0px;
+	right: 0px;
 	
 	z-index:100;
 	width:100%;
@@ -61,18 +61,18 @@ html, body { margin: 0; padding: 0; height: 100%;}
 	clear:none;
 	display:block;
 }
-
-#lightbox a, #lightbox a:link, #lightbox a:visited, #lightbox a:hover {
-	text-decoration:underline;
-	color:#999999;
-}
-
 #lightbox-overlay {
 	z-index: 90;
 	background-color:#000000;
 	height: 100%;
 	position:fixed;
 }
+
+#lightbox a, #lightbox a:link, #lightbox a:visited, #lightbox a:hover {
+	text-decoration:underline;
+	color:#999999;
+}
+
 #lightbox-overlay-text {
 	text-align: right;
 	margin-right: 20px;

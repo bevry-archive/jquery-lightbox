@@ -38,10 +38,12 @@
 	 * Console Emulator
 	 * We have to convert arguments into arrays, and do this explicitly as webkit (chrome) hates function references, and arguments cannot be passed as is
 	 * @version 1.0.1
-	 * @since 1.0.0 June 20, 2010
 	 * @date July 09, 2010
+	 * @since 0.1.0-dev, December 01, 2009
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	if ( typeof window.console !== 'object' || typeof window.console.emulated === 'undefined' ) {
 		// Check to see if console exists
@@ -89,11 +91,17 @@
 	
 	/**
 	 * Return a new JSON object of the old string.
-	 * Turning 'a=b&c.e=d' to {a:'b',c:{e:'d'}}
-	 * @version 1.0.0
-	 * @date June 30, 2010
+	 * Turns:
+	 * 		file.js?a=1&amp;b.c=3.0&b.d=four&a_false_value=false&a_null_value=null
+	 * Into:
+	 * 		{"a":1,"b":{"c":3,"d":"four"},"a_false_value":false,"a_null_value":null}
+	 * @version 1.1.0
+	 * @date July 16, 2010
+	 * @since 1.0.0, June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	String.prototype.queryStringToJSON = String.prototype.queryStringToJSON || function ( )
 	{	// Turns a params string or url into an array of params
@@ -110,7 +118,7 @@
 			return eval(decodeURIComponent(params));
 		}
 		// We have a params string
-		params = params.split(/\&|\&amp\;/);
+		params = params.split(/\&(amp\;)?/);
 		var json = {};
 		// We have params
 		for ( var i = 0, n = params.length; i < n; ++i )
@@ -140,34 +148,45 @@
 			}
 		
 			// Set
-			// console.log({'key':key,'value':value}, split);
+			// window.console.log({'key':key,'value':value}, split);
 			var keys = key.split('.');
 			if ( keys.length === 1 )
 			{	// Simple
 				json[key] = value;
 			}
 			else
-			{	// Advanced
-				var path = '';
-				for ( ii in keys )
-				{	//
-					key = keys[ii];
-					path += '.'+key;
-					eval('json'+path+' = json'+path+' || {}');
-				}
-				eval('json'+path+' = value');
+			{	// Advanced (Recreating an object)
+				var path = '',
+					cmd = '';
+				// Ensure Path Exists
+				$.each(keys,function(ii,key){
+					path += '["'+key.replace(/"/g,'\\"')+'"]';
+					jsonCLOSUREGLOBAL = json; // we have made this a global as closure compiler struggles with evals
+					cmd = 'if ( typeof jsonCLOSUREGLOBAL'+path+' === "undefined" ) jsonCLOSUREGLOBAL'+path+' = {}';
+					eval(cmd);
+					json = jsonCLOSUREGLOBAL;
+					delete jsonCLOSUREGLOBAL;
+				});
+				// Apply Value
+				jsonCLOSUREGLOBAL = json; // we have made this a global as closure compiler struggles with evals
+				valueCLOSUREGLOBAL = value; // we have made this a global as closure compiler struggles with evals
+				cmd = 'jsonCLOSUREGLOBAL'+path+' = valueCLOSUREGLOBAL';
+				eval(cmd);
+				json = jsonCLOSUREGLOBAL;
+				delete jsonCLOSUREGLOBAL;
+				delete valueCLOSUREGLOBAL;
 			}
 			// ^ We now have the parts added to your JSON object
 		}
 		return json;
 	};
-	
-	
+
 	/**
 	 * Remove a element, or a set of elements from an array
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @copyright John Resig (MIT Licensed)
+	 * @copyright John Resig
+	 * @license MIT License - {@link http://opensource.org/licenses/mit-license.php}
 	 */
 	Array.prototype.remove = function(from, to) {
 		var rest = this.slice((to || from) + 1 || this.length);
@@ -181,8 +200,10 @@
 	 * @version 1.0.1
 	 * @date July 09, 2010
 	 * @since 1.0.0 June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.get = function(index, current) {
 		// Determine
@@ -211,8 +232,10 @@
 	 * Apply the function [fn] to each element in the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.each = function(fn){
 		for (var i = 0; i < this.length; ++i) {
@@ -226,8 +249,10 @@
 	 * Checks whether the index is a valid index
 	 * @version 1.0.0
 	 * @date July 09, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.validIndex = function(index){
 		return index >= 0 && index < this.length;
@@ -237,8 +262,10 @@
 	 * Set the current index of the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.setIndex = function(index){
 		if ( this.validIndex(index) ) {
@@ -254,8 +281,10 @@
 	 * If [index] is passed then set that as the current, and return it's value
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.current = function(index){
 		return this.get(index, true);
@@ -265,8 +294,10 @@
 	 * Get whether or not the array is empty
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.isEmpty = function(){
 		return this.length === 0;
@@ -276,8 +307,10 @@
 	 * Get whether or not the array has only one item
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.isSingle = function(){
 		return this.length === 1;
@@ -287,8 +320,10 @@
 	 * Get whether or not the array is not empty
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.isNotEmpty = function(){
 		return this.length !== 0;
@@ -298,8 +333,10 @@
 	 * Get whether or not the array has more than one item
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.isNotEmpty = function(){
 		return this.length > 1;
@@ -309,8 +346,10 @@
 	 * Get whether or not the current index is the last one
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.isLast = function(index){
 		index = typeof index === 'undefined' ? this.index : index;
@@ -321,8 +360,10 @@
 	 * Get whether or not the current index is the first one
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.isFirst = function(index){
 		index = typeof index === 'undefined' ? this.index : index;
@@ -333,8 +374,10 @@
 	 * Clear the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.clear = function(){
 		this.length = 0;
@@ -344,8 +387,10 @@
 	 * Set the index as the next one, and get the item
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.next = function(update){
 		return this.get(this.index+1, update);
@@ -355,8 +400,10 @@
 	 * Set the index as the previous one, and get the item
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.prev = function(update){
 		return this.get(this.index-1, update);
@@ -366,8 +413,10 @@
 	 * Reset the index
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.reset = function(){
 		this.index = null;
@@ -378,8 +427,10 @@
 	 * Set the [index] to the [item]
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.set = function(index, item){
 		// We want to set the item
@@ -397,8 +448,10 @@
 	 * If we reach the end, then start back at the beginning.
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.loop = function(){
 		if ( !this.index && this.index !== 0 ) {
@@ -412,8 +465,10 @@
 	 * Add the [arguments] to the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.add = function(){
 		this.push.apply(this,arguments);
@@ -424,8 +479,10 @@
 	 * Insert the [item] at the [index] or at the end of the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.insert = function(index, item){
 		if ( typeof index !== 'number' ) {
@@ -443,8 +500,10 @@
 	 * Get whether or not the index exists in the array
 	 * @version 1.0.0
 	 * @date July 09, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.exists = Array.prototype.exists || function(index){
 		return typeof this[index] !== 'undefined';
@@ -454,8 +513,10 @@
 	 * Get whether or not the value exists in the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
 	 */
 	Array.prototype.has = Array.prototype.has || function(value){
 		var has = false;
@@ -468,6 +529,134 @@
 		return has;
 	};
 
+	/**
+	 * Bind a event only once
+	 * @version 1.0.0
+	 * @date June 30, 2010
+     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 */
+	$.fn.once = $.fn.once || function(event, data, callback){
+		// Only apply a event handler once
+		var $this = $(this);
+		// Handle
+		if ( (callback||false) ) {
+			$this.unbind(event, callback);
+			$this.bind(event, data, callback);
+		} else {
+			callback = data;
+			$this.unbind(event, callback);
+			$this.bind(event, callback);
+		}
+		// Chain
+		return $this;
+	};
+	
+	/**
+	 * Bind a event, with or without data
+	 * Benefit over $.bind, is that $.binder(event, callback, false|{}|''|false) works.
+	 * @version 1.0.0
+	 * @date June 30, 2010
+     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 */
+	$.fn.binder = $.fn.binder || function(event, data, callback){
+		// Help us bind events properly
+		var $this = $(this);
+		// Handle
+		if ( (callback||false) ) {
+			$this.bind(event, data, callback);
+		} else {
+			callback = data;
+			$this.bind(event, callback);
+		}
+		// Chain
+		return $this;
+	};
+	
+	/**
+	 * Event for the last click for a series of one or more clicks
+	 * @version 1.0.0
+	 * @date July 16, 2010
+     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 */
+	$.fn.lastclick = $.fn.lastclick || function(data,callback){
+		return $(this).binder('lastclick',data,callback);
+	};
+	$.event.special.lastclick = $.event.special.lastclick || {
+		setup: function( data, namespaces ) {
+			$(this).bind('click', $.event.special.lastclick.handler);
+		},
+		teardown: function( namespaces ) {
+			$(this).unbind('click', $.event.special.lastclick.handler);
+		},
+		handler: function( event ) {
+			// Setup
+			var clear = function(){
+				// Fetch
+				var Me = this;
+				var $el = $(Me);
+				// Fetch Timeout
+				var timeout = $el.data('lastclick-timeout')||false;
+				// Clear Timeout
+				if ( timeout ) {
+					clearTimeout(timeout);
+				}
+				timeout = false;
+				// Store Timeout
+				$el.data('lastclick-timeout',timeout);
+			};
+			var check = function(event){
+				// Fetch
+				var Me = this;
+				clear.call(Me);
+				var $el = $(Me);
+				// Store the amount of times we have been clicked
+				$el.data('lastclick-clicks', ($el.data('lastclick-clicks')||0)+1);
+				// Handle Timeout for when All Clicks are Completed
+				var timeout = setTimeout(function(){
+					// Fetch Clicks Count
+					var clicks = $el.data('lastclick-clicks');
+					// Clear Timeout
+					clear.apply(Me,[event]);
+					// Reset Click Count
+					$el.data('lastclick-clicks',0);
+					// Fire Event
+					event.type = 'lastclick';
+					$.event.handle.apply(Me, [event,clicks])
+				},300);
+				// Store Timeout
+				$el.data('lastclick-timeout',timeout);
+			};
+			// Fire
+			check.apply(this,[event]);
+		}
+	};
+	
+	/**
+	 * Prevent the default action when a click is performed
+	 * @version 1.0.0
+	 * @date August 19, 2010
+	 * @since 1.0.0, August 19, 2010
+     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
+	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 */
+	$.fn.preventDefault = $.fn.preventDefault || function(){
+		return $(this).click(function(event){
+			event.preventDefault();
+			return false;
+		});
+	};
+	
 
 	// Declare our class
 	$.LightboxClass = function ( )
@@ -498,7 +687,7 @@
 		// Events?
 		if ( options.events )
 		{	// Add events
-			$group.unbind('click').click(function(){
+			$group.preventDefault().once('lastclick',function(event){
 				// Get obj
 				var $obj = $(this);
 				// Get position
@@ -510,6 +699,7 @@
 				if ( !$.Lightbox.start() )
 				{	return false;	}
 				// Cancel href
+				event.preventDefault();
 				return false;
 			});
 			// Add style
@@ -960,21 +1150,21 @@
 			}
 			
 			// Prev
-			$('#lightbox-nav-btnPrev').unbind().hover(function() { // over
+			$('#lightbox-nav-btnPrev').unbind().preventDefault().hover(function() { // over
 				$(this).css({ 'background' : 'url(' + $.Lightbox.files.images.prev + ') left 45% no-repeat' });
 			},function() { // out
 				$(this).css({ 'background' : 'transparent url(' + $.Lightbox.files.images.blank + ') no-repeat' });
-			}).click(function() {
+			}).lastclick(function() {
 				$.Lightbox.showImage('prev');
 				return false;
 			});
 					
 			// Next
-			$('#lightbox-nav-btnNext').unbind().hover(function() { // over
+			$('#lightbox-nav-btnNext').unbind().preventDefault().hover(function() { // over
 				$(this).css({ 'background' : 'url(' + $.Lightbox.files.images.next + ') right 45% no-repeat' });
 			},function() { // out
 				$(this).css({ 'background' : 'transparent url(' + $.Lightbox.files.images.blank + ') no-repeat' });
-			}).click(function() {
+			}).lastclick(function() {
 				$.Lightbox.showImage('next');
 				return false;
 			});
@@ -982,7 +1172,7 @@
 			// Help
 			if ( this.show_linkback )
 			{	// Linkback exists so add handler
-				$('#lightbox-overlay-text-about a').click(function(){window.open($.Lightbox.text.about.link); return false;});
+				$('#lightbox-overlay-text-about a').preventDefault().lastclick(function(){window.open($.Lightbox.text.about.link); return false;});
 			}
 			$('#lightbox-overlay-text-close').unbind().hover(
 				function(){
@@ -995,11 +1185,11 @@
 			
 			// Image link
 			if ( this.download_link ) {
-				$('#lightbox-caption-title').click(function(){window.open($(this).attr('href')); return false;});
+				$('#lightbox-caption-title').preventDefault().lastclick(function(){window.open($(this).attr('href')); return false;});
 			}
 			
 			// Assign close clicks
-			$('#lightbox-overlay, #lightbox, #lightbox-loading-link, #lightbox-btnClose').unbind().click(function() {
+			$('#lightbox-overlay, #lightbox, #lightbox-loading-link, #lightbox-btnClose').unbind().preventDefault().lastclick(function() {
 				$.Lightbox.finish();
 				return false;	
 			});

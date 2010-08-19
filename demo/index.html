@@ -129,17 +129,17 @@
 		
 		<h3>Step 3. Include jQuery (insert into your page's head tag)</h3>
 		<p>If your page already has jQuery included then you can skip this step.</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;!-- Include jQuery (Lightbox Requirement) --&gt;
 			&lt;script type="text/javascript" src="http://www.yoursite.com/somewhere/on/your/webserver/jquery-lightbox/scripts/jquery-1.4.2.min.js"&gt;&lt;/script&gt;
-		</code>
+		</pre>
 		
 		<h3>Step 4. Include jQuery Lightbox (insert into your page's head tag)</h3>
 		<p>We will auto include everything else for you, so you only have to insert the below into your head tag.</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;!-- Include Lightbox (Production) --&gt;
 			&lt;script type="text/javascript" src="http://www.yoursite.com/somewhere/on/your/webserver/jquery-lightbox/scripts/jquery.lightbox.min.js"&gt;&lt;/script&gt;
-		</code>
+		</pre>
 	</div>
 	
 	<div class="section">
@@ -147,7 +147,7 @@
 		
 		<h3>Introduction</h3>
 		<p>There are a few ways you can use jquery lightbox. Firstly, let's specify our gallery we will be using.</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;div class="gallery"&gt;
 				&lt;ul class="images"&gt;
 					&lt;li class="image"&gt;
@@ -162,42 +162,42 @@
 					&lt;/li&gt;
 				&lt;/ul&gt;
 			&lt;/div&gt;
-		</code>
+		</pre>
 		
 		<h3>Making it work with lightbox</h3>
 		<p>All we need to do, is add a <code>rel</code> attribute which contains <code>lightbox</code> to our gallery. We do this by changing:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;a href="...
-		</code>
+		</pre>
 		<p>To:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;a rel="lightbox-mygallery" href="...
-		</code>
+		</pre>
 		<p>Notice how we have <code>-mygallery</code> above, we do this to group the images together in a lightbox. If you would like the lightbox to only contain one image, you can use the simple:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;a rel="lightbox" href="...
-		</code>
+		</pre>
 		<p>And that's all you need to know, when you reload the page your gallery will now use the lightbox script.</p>
 		
 		<h3>Making it work, without editing our html</h3>
 		<p>But what if you would like to keep the html as it was, and not have to add the lightbox <code>rel</code> attribute?</p>
 		<p>You can do this by running the following instead:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;script type="text/javascript"&gt;
 				$('a:has(img)').lightbox();
 			&lt;/script&gt;
-		</code>
+		</pre>
 		<p>And that will do it for you! You can also change the text <code>a:has(img)</code> which we use to whatever <a href="selectors" title="Learn more about selectors">selector</a> you would like to use for your lightboxes.</p>
 	
 		<h3>Titles and Descriptions</h3>
 		<p>Remember for out gallery how we had titles and descriptions for our images. Let's refresh our memory:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;li class="image"&gt;
 				&lt;a rel="lightbox-mygallery" href="http://farm2.static.flickr.com/1395/1116205566_42ce0841ab.jpg" title="tallest, deepest: Lovely photo of perth during the daytime."&gt;
 					&lt;img src="http://farm2.static.flickr.com/1395/1116205566_42ce0841ab_s.jpg" height="75" width="75"&gt;
 				&lt;/a&gt;
 			&lt;/li&gt;
-		</code>
+		</pre>
 		<p>Notice the <code>title</code> attribute on both the <code>a</code> element? This stores our title and description.</p>
 		<p>We seperate the description by using a colon <code>:</code>, anything before the colon is the title, and anything after is the description.</p>
 		<p>Descriptions and titles and entirely optional. You can have neither, just a title, or a title and description.</p>
@@ -209,23 +209,23 @@
 		<h3>What if I would like to turn off the top right linkback?</h3>
 		<p>Fair request, we've made this easy, so all you have to do is set the <code>show_linkback</code> option to <code>false</code>. This can be done two ways.</p>
 		<p>The first and simplest way we can do it, is to use a url variable. So alter our jQuery Lightbox include in step 4 to:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;!-- Include Lightbox (Production) --&gt;
 			&lt;script type="text/javascript" src="http://www.yoursite.com/some/where/jquery-lightbox/scripts/jquery.lightbox.min.js?show_linkback=false"&gt;&lt;/script&gt;
-		</code>
+		</pre>
 		<p>The other more complicated way (which is sometimes preferable) is to set the option via javascript. Like so:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;script type="text/javascript"&gt;$(function(){
 				$.Lightbox.construct({
 					"show_linkback":	false
 				});
 			});&lt;/script&gt;
-		</code>
+		</pre>
 		<p>So pick one or the other, and apply the customisation and you won't have the linkback anymore!</p>
 		
 		<h3>What if I would like to translate it into my own language?</h3>
 		<p>You can do this too! So we are going to use the second style above, as there is a lot of text that could be translated. To translate from english to english we can use:</p>
-		<code class="code language-html">
+		<pre class="code language-html">
 			&lt;script type="text/javascript"&gt;$(function(){
 				$.Lightbox.construct({
 					"text": {
@@ -247,7 +247,7 @@
 					}
 				});
 			});&lt;/script&gt;
-		</code>
+		</pre>
 		<p>So there you have it, the left side is what is to be translated, and the right is the text that will be used as the translation!. It's that easy.</p>
 		
 		<h3>That's cool, what other customisations do you support?</h3>
@@ -257,7 +257,7 @@
 	<div class="section">
 		<h2>Styling your gallery</h2>
 		<p>While not part of the lightbox script at all, here is some nice CSS so you can style your gallery like our example above.</p>
-		<code class="code language-css">
+		<pre class="code language-css">
 			/* Gallery Styling */
 			.gallery .image-title,
 			.gallery .image-description,
@@ -325,7 +325,7 @@
 				-webkit-box-shadow: 0px 0px 8px #222;
 				box-shadow: 0px 0px 8px #222;
 			}
-		</code>
+		</pre>
 	</div>
 	
 	<div class="section">

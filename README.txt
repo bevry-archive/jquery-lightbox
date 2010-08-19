@@ -19,8 +19,8 @@
  * - A copy of our interpretation of the license used.
  *   If not, see <http://github.com/balupton/jquery-lightbox/blob/master/COPYING.txt>.
  * 
- * @version 1.4.7-final
- * @date August 16, 2010
+ * @version 1.4.8-final
+ * @date August 19, 2010
  * @since v0.1.0-dev, December 3, 2007
  * @category jquery-plugin
  * @package jquery-lightbox {@link http://www.balupton/projects/jquery-lightbox}

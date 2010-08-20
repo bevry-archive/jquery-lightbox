@@ -35,6 +35,12 @@ build:
 add:
 	git add .gitignore CHECKLIST.txt COPYING.txt demo FDL.txt images Makefile README.txt scripts styles
 
+push:
+	git push --all ; git push --tags ;
+
+refresh:
+	wget -q http://github.com/balupton/jquery-history/raw/master/demo/styles/generic.css -O demo/styles/generic.css ;
+
 compress:
 	java -jar $(CLOSUREFILE) --js_output_file=$(OUTJS) --js=$(INJS);
 	java -jar $(YUIFILE) $(INCSS) -o $(OUTCSS);

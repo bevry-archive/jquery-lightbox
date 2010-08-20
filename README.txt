@@ -19,8 +19,8 @@
  * - A copy of our interpretation of the license used.
  *   If not, see <http://github.com/balupton/jquery-lightbox/blob/master/COPYING.txt>.
  * 
- * @version 1.4.8-final
- * @date August 19, 2010
+ * @version 1.4.9-final
+ * @date August 21, 2010
  * @since v0.1.0-dev, December 3, 2007
  * @category jquery-plugin
  * @package jquery-lightbox {@link http://www.balupton/projects/jquery-lightbox}
@@ -195,6 +195,9 @@ How to apply options?
 ----
 
 Changelog:
+
+v1.4.9-final, August 21, 2010
+- Updated jQuery Sparkle dependencies to [v1.4.17-final, August 21, 2010]
 
 v1.4.8-final, August 19, 2010
 - Fixed double click issue. http://getsatisfaction.com/balupton/topics/lightbox_locks_the_screen_when_thumbs_are_double_clicked

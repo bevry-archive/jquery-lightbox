@@ -640,6 +640,7 @@
 					$el.data('lastclick-clicks',0);
 					// Fire Event
 					event.type = 'lastclick';
+					event.isPropagationStopped = function() { return false };
 					$.event.handle.apply(Me, [event,clicks])
 				},300);
 				// Store Timeout
@@ -913,7 +914,7 @@
 				{	// We found ourself
 					
 					// Grab the script src
-					this.src = $script.attr('src');
+					this.src = $script.prop('src');
 					
 					// The baseurl is the src up until the start of our js file
 					this.baseurl = this.src.substring(0, this.src.indexOf(this.files.scripts.lightbox));

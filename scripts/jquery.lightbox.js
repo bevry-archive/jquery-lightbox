@@ -71,27 +71,27 @@
 			if ( typeof window.console.debug === 'undefined' ) {
 				window.console.debug = function(){
 					var arr = ['console.debug:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
+					window.console.log.apply(window.console, arr);
 				};
 			}
 			// Check Warn
 			if ( typeof window.console.warn === 'undefined' ) {
 				window.console.warn = function(){
 					var arr = ['console.warn:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
+					window.console.log.apply(window.console, arr);
 				};
 			} 
 			// Check Error
 			if ( typeof window.console.error === 'undefined' ) {
 				window.console.error = function(){
 					var arr = ['console.error']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
-				    window.console.log.apply(window.console, arr);
+					window.console.log.apply(window.console, arr);
 				};
 			}
 			// Check Trace
 			if ( typeof window.console.trace === 'undefined' ) {
 				window.console.trace = function(){
-				    window.console.error.apply(window.console, ['console.trace does not exist']);
+					window.console.error.apply(window.console, ['console.trace does not exist']);
 				};
 			}
 		}
@@ -151,10 +151,10 @@
 			key = decodeURIComponent(key);
 			value = decodeURIComponent(value);
 			try {
-			    // value can be converted
-			    value = eval(value);
+				// value can be converted
+				value = eval(value);
 			} catch ( e ) {
-			    // value is a normal string
+				// value is a normal string
 			}
 		
 			// Set
@@ -543,7 +543,7 @@
 	 * Bind a event only once
 	 * @version 1.0.0
 	 * @date June 30, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
 	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
@@ -569,7 +569,7 @@
 	 * Benefit over $.bind, is that $.binder(event, callback, false|{}|''|false) works.
 	 * @version 1.0.0
 	 * @date June 30, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
 	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
@@ -592,7 +592,7 @@
 	 * Event for the last click for a series of one or more clicks
 	 * @version 1.0.0
 	 * @date July 16, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
 	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
@@ -655,7 +655,7 @@
 	 * @version 1.0.0
 	 * @date August 19, 2010
 	 * @since 1.0.0, August 19, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
+	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
 	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
 	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
 	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}

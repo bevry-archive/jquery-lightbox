@@ -39,16 +39,16 @@ em {
 }
 
 body {
-    padding-left: 0px;
-    padding-right: 0px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: #000000;
+	padding-left: 0px;
+	padding-right: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #000000;
 }
 
 
 p,
 .section div {
-    padding: 0px;
+	padding: 0px;
 	margin:1em 0;
 }
 .section.install p,
@@ -79,22 +79,22 @@ label {
 }
 
 .section {
-    border-top: 1px solid #BBB;
-    margin-top: 15px;
-    margin-left: 5%;
-    margin-right: 5%;
-    padding: 5px;
-    padding-bottom: 0px;
-    background-color: white;
+	border-top: 1px solid #BBB;
+	margin-top: 15px;
+	margin-left: 5%;
+	margin-right: 5%;
+	padding: 5px;
+	padding-bottom: 0px;
+	background-color: white;
 }
 
 .section ul {
-    list-style: none;
-    margin-top: 5px;
+	list-style: none;
+	margin-top: 5px;
 }
 
 .section ul li {
-    display: inline;
+	display: inline;
 }
 
 a.help {
@@ -127,44 +127,44 @@ a.help:visited {
 }
 
 .section span.code {
-    font-family: "Courier New", Courier, monospace;
-    margin-left: 10px;
-    padding-left: 10px;
-    font-size: 11px;
-    border-left: 1px solid #000;
+	font-family: "Courier New", Courier, monospace;
+	margin-left: 10px;
+	padding-left: 10px;
+	font-size: 11px;
+	border-left: 1px solid #000;
 }
 
 .section .link {
-    font-size: 12px;
-    font-style: italic;
-    padding-left: 10px;
-    margin-left: 10px;
+	font-size: 12px;
+	font-style: italic;
+	padding-left: 10px;
+	margin-left: 10px;
 }
 
 .section .important {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .section .title {
-    font-weight: bold;
-    font-size: 16px;
+	font-weight: bold;
+	font-size: 16px;
 }
 
 .clear {
-    clear: left;
+	clear: left;
 }
 
 .section.header {
-    text-align: center;
-    font-size: 12px;
-    padding-top: 10px;
-    border-top: none;
+	text-align: center;
+	font-size: 12px;
+	padding-top: 10px;
+	border-top: none;
 }
 
 .section.footer {
-    text-align: center;
-    font-size: 12px;
-    padding-top: 10px;
+	text-align: center;
+	font-size: 12px;
+	padding-top: 10px;
 }
 
 body.loading {

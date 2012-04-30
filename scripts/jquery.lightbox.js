@@ -1,49 +1,49 @@
 /**
  * This file is part of jQuery Lightbox
  * Copyright (C) 2007-2010 Benjamin Arthur Lupton
- * http://www.balupton.com/projects/jquery-lightbox
+ * http://balupton.com/projects/jquery-lightbox
  *
  * jQuery Lightbox is free software; You can redistribute it and/or modify it under the terms of
  * the GNU Affero General Public License version 3 as published by the Free Software Foundation.
  * You don't have to do anything special to accept the license and you don’t have to notify
  * anyone which that you have made that decision.
- * 
+ *
  * jQuery Lightbox is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See your chosen license for more details.
- * 
+ *
  * You should have received along with jQuery Lightbox:
  * - A copy of the license used.
  *   If not, see <http://www.gnu.org/licenses/agpl-3.0.html>.
  * - A copy of our interpretation of the license used.
  *   If not, see <http://github.com/balupton/jquery-lightbox/blob/master/COPYING.txt>.
- * 
+ *
  * @version 1.4.6-final
  * @date July 28, 2010
  * @since v0.1.0-dev, December 3, 2007
  * @category jquery-plugin
- * @package jquery-lightbox {@link http://www.balupton/projects/jquery-lightbox}
- * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
- * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
- * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
- * @example Visit {@link http://www.balupton.com/projects/jquery-lightbox} for more information.
+ * @package jquery-lightbox {@link http://balupton.com/projects/jquery-lightbox}
+ * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+ * @copyright (c) 2007-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+ * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
+ * @example Visit {@link http://balupton.com/projects/jquery-lightbox} for more information.
  */
 
 // Start of our jQuery Plugin
 (function($)
 {	// Create our Plugin function, with $ as the argument (we pass the jQuery object over later)
 	// More info: http://docs.jquery.com/Plugins/Authoring#Custom_Alias
-	
+
 	/**
 	 * Console Emulator
 	 * We have to convert arguments into arrays, and do this explicitly as webkit (chrome) hates function references, and arguments cannot be passed as is
 	 * @version 1.0.2
 	 * @date August 21, 2010
 	 * @since 0.1.0-dev, December 01, 2009
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	if ( typeof window.console !== 'object' || typeof window.console.emulated === 'undefined' ) {
 		// Check to see if console exists
@@ -80,7 +80,7 @@
 					var arr = ['console.warn:']; for(var i = 0; i < arguments.length; i++) { arr.push(arguments[i]); };
 				    window.console.log.apply(window.console, arr);
 				};
-			} 
+			}
 			// Check Error
 			if ( typeof window.console.error === 'undefined' ) {
 				window.console.error = function(){
@@ -98,7 +98,7 @@
 		// We have been emulated
 		window.console.emulated = true;
 	}
-	
+
 	/**
 	 * Return a new JSON object of the old string.
 	 * Turns:
@@ -108,10 +108,10 @@
 	 * @version 1.1.0
 	 * @date July 16, 2010
 	 * @since 1.0.0, June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	String.prototype.queryStringToJSON = String.prototype.queryStringToJSON || function ( )
 	{	// Turns a params string or url into an array of params
@@ -139,14 +139,14 @@
 			param = param.split('=');
 			if ( param === null ) { continue; }
 			// ^ We now have "var=blah" into ["var","blah"]
-		
+
 			// Get
 			var key = param[0] || null;
 			if ( key === null ) { continue; }
 			if ( typeof param[1] === 'undefined' ) { continue; }
 			var value = param[1];
 			// ^ We now have the parts
-		
+
 			// Fix
 			key = decodeURIComponent(key);
 			value = decodeURIComponent(value);
@@ -156,7 +156,7 @@
 			} catch ( e ) {
 			    // value is a normal string
 			}
-		
+
 			// Set
 			// window.console.log({'key':key,'value':value}, split);
 			var keys = key.split('.');
@@ -210,10 +210,10 @@
 	 * @version 1.0.1
 	 * @date July 09, 2010
 	 * @since 1.0.0 June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.get = function(index, current) {
 		// Determine
@@ -228,12 +228,12 @@
 		} else if ( !index && index !== 0 ) {
 			index = this.index;
 		}
-	
+
 		// Set current?
 		if ( current||false !== false ) {
 			this.setIndex(index);
 		}
-	
+
 		// Return
 		return this.exists(index) ? this[index] : undefined;
 	};
@@ -242,14 +242,14 @@
 	 * Apply the function [fn] to each element in the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.each = function(fn){
 		for (var i = 0; i < this.length; ++i) {
-			if (fn(i, this[i], this) === false) 
+			if (fn(i, this[i], this) === false)
 				break;
 		}
 		return this;
@@ -259,10 +259,10 @@
 	 * Checks whether the index is a valid index
 	 * @version 1.0.0
 	 * @date July 09, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.validIndex = function(index){
 		return index >= 0 && index < this.length;
@@ -272,10 +272,10 @@
 	 * Set the current index of the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.setIndex = function(index){
 		if ( this.validIndex(index) ) {
@@ -291,10 +291,10 @@
 	 * If [index] is passed then set that as the current, and return it's value
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.current = function(index){
 		return this.get(index, true);
@@ -304,10 +304,10 @@
 	 * Get whether or not the array is empty
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.isEmpty = function(){
 		return this.length === 0;
@@ -317,10 +317,10 @@
 	 * Get whether or not the array has only one item
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.isSingle = function(){
 		return this.length === 1;
@@ -330,10 +330,10 @@
 	 * Get whether or not the array is not empty
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.isNotEmpty = function(){
 		return this.length !== 0;
@@ -343,10 +343,10 @@
 	 * Get whether or not the array has more than one item
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.isNotEmpty = function(){
 		return this.length > 1;
@@ -356,10 +356,10 @@
 	 * Get whether or not the current index is the last one
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.isLast = function(index){
 		index = typeof index === 'undefined' ? this.index : index;
@@ -370,10 +370,10 @@
 	 * Get whether or not the current index is the first one
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.isFirst = function(index){
 		index = typeof index === 'undefined' ? this.index : index;
@@ -384,10 +384,10 @@
 	 * Clear the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.clear = function(){
 		this.length = 0;
@@ -397,10 +397,10 @@
 	 * Set the index as the next one, and get the item
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.next = function(update){
 		return this.get(this.index+1, update);
@@ -410,10 +410,10 @@
 	 * Set the index as the previous one, and get the item
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.prev = function(update){
 		return this.get(this.index-1, update);
@@ -423,10 +423,10 @@
 	 * Reset the index
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.reset = function(){
 		this.index = null;
@@ -437,10 +437,10 @@
 	 * Set the [index] to the [item]
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.set = function(index, item){
 		// We want to set the item
@@ -458,10 +458,10 @@
 	 * If we reach the end, then start back at the beginning.
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.loop = function(){
 		if ( !this.index && this.index !== 0 ) {
@@ -475,10 +475,10 @@
 	 * Add the [arguments] to the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.add = function(){
 		this.push.apply(this,arguments);
@@ -489,10 +489,10 @@
 	 * Insert the [item] at the [index] or at the end of the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.insert = function(index, item){
 		if ( typeof index !== 'number' ) {
@@ -510,10 +510,10 @@
 	 * Get whether or not the index exists in the array
 	 * @version 1.0.0
 	 * @date July 09, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.exists = Array.prototype.exists || function(index){
 		return typeof this[index] !== 'undefined';
@@ -523,10 +523,10 @@
 	 * Get whether or not the value exists in the array
 	 * @version 1.0.0
 	 * @date June 30, 2010
-	 * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+	 * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	Array.prototype.has = Array.prototype.has || function(value){
 		var has = false;
@@ -543,10 +543,10 @@
 	 * Bind a event only once
 	 * @version 1.0.0
 	 * @date June 30, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+     * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	$.fn.once = $.fn.once || function(event, data, callback){
 		// Only apply a event handler once
@@ -563,16 +563,16 @@
 		// Chain
 		return $this;
 	};
-	
+
 	/**
 	 * Bind a event, with or without data
 	 * Benefit over $.bind, is that $.binder(event, callback, false|{}|''|false) works.
 	 * @version 1.0.0
 	 * @date June 30, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+     * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	$.fn.binder = $.fn.binder || function(event, data, callback){
 		// Help us bind events properly
@@ -587,15 +587,15 @@
 		// Chain
 		return $this;
 	};
-	
+
 	/**
 	 * Event for the last click for a series of one or more clicks
 	 * @version 1.0.0
 	 * @date July 16, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+     * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	$.fn.lastclick = $.fn.lastclick || function(data,callback){
 		return $(this).binder('lastclick',data,callback);
@@ -649,16 +649,16 @@
 			check.apply(this,[event]);
 		}
 	};
-	
+
 	/**
 	 * Prevent the default action when a click is performed
 	 * @version 1.0.0
 	 * @date August 19, 2010
 	 * @since 1.0.0, August 19, 2010
-     * @package jquery-sparkle {@link http://www.balupton/projects/jquery-sparkle}
-	 * @author Benjamin "balupton" Lupton {@link http://www.balupton.com}
-	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://www.balupton.com}
-	 * @license GNU Affero General Public License version 3 {@link http://www.gnu.org/licenses/agpl-3.0.html}
+     * @package jquery-sparkle {@link http://balupton.com/projects/jquery-sparkle}
+	 * @author Benjamin "balupton" Lupton {@link http://balupton.com}
+	 * @copyright (c) 2009-2010 Benjamin Arthur Lupton {@link http://balupton.com}
+	 * @license MIT License {@link http://creativecommons.org/licenses/MIT/}
 	 */
 	$.fn.preventDefault = $.fn.preventDefault || function(){
 		return $(this).click(function(event){
@@ -666,34 +666,34 @@
 			return false;
 		});
 	};
-	
+
 
 	// Declare our class
 	$.LightboxClass = function ( )
 	{	// This is the handler for our constructor
 		this.construct();
 	};
-	
+
 	// Extend jQuery elements for Lightbox
 	$.fn.lightbox = function ( options )
 	{	// Init a el for Lightbox
 		// Eg. $('#gallery a').lightbox();
-		
+
 		// If need be: Instantiate $.LightboxClass to $.Lightbox
 		$.Lightbox = $.Lightbox || new $.LightboxClass();
-		
+
 		// Handle IE6
 		if ( $.Lightbox.ie6 && !$.Lightbox.ie6_support )
 		{	// We are IE6 and we want to ignore
 			return this; // chain
 		}
-		
+
 		// Establish options
 		options = $.extend({start:false,events:true} /* default options */, options);
-		
+
 		// Get group
 		var $group = $(this);
-		
+
 		// Events?
 		if ( options.events )
 		{	// Add events
@@ -715,7 +715,7 @@
 			// Add style
 			$group.addClass('lightbox-enabled');
 		}
-		
+
 		// Start?
 		if ( options.start )
 		{	// Start
@@ -730,32 +730,32 @@
 			if ( !$.Lightbox.start() )
 			{	return this;	}
 		}
-		
+
 		// And chain
 		return this;
 	};
-	
+
 	// Define our class
 	$.extend($.LightboxClass.prototype,
 	{	// Our LightboxClass definition
-		
+
 		// -----------------
 		// Everything to do with images
-		
+
 		images: [],
-		
+
 		// -----------------
 		// Variables
-		
+
 		constructed:		false,
 		compressed:			null,
-		
+
 		// -----------------
 		// Options
-		
+
 		src:				null,		// the source location of our js file
 		baseurl:			null,
-		
+
 		files: {
 			compressed: {
 				scripts: {
@@ -782,7 +782,7 @@
 				loading:	'images/loading.gif'
 			}
 		},
-		
+
 		text: {
 			// For translating
 			image:		'Image',
@@ -797,70 +797,70 @@
 			about: {
 				text: 	'jQuery Lightbox Plugin (balupton edition)',
 				title:	'Licenced under the GNU Affero General Public License.',
-				link:	'http://www.balupton.com/projects/jquery-lightbox'
+				link:	'http://balupton.com/projects/jquery-lightbox'
 			}
 		},
-		
+
 		keys: {
 			close:	'c',
 			prev:	'p',
 			next:	'n'
 		},
-		
+
 		handlers: {
 			// For custom actions
 			show:	null
 		},
-		
+
 		opacity:		0.9,
 		padding:		null,		// if null - autodetect
-		
+
 		speed:			400,		// Duration of effect, milliseconds
-		
+
 		rel:			'lightbox',	// What to look for in the rels
-		
+
 		auto_relify:	true,		// should we automaticly do the rels?
-		
+
 		auto_scroll:	'follow',	// should the lightbox scroll with the page? follow, disabled, ignore
 		auto_resize:	true,		// true or false
-		
+
 		ie6:			null,		// are we ie6?
 		ie6_support:	true,		// have ie6 support
-		
+
 		colorBlend:		null,		// null - auto-detect, true - force, false - no
-		
+
 		download_link:		true,	// Display the download link
-		
+
 		show_helper_text:	true,	// Display the helper text up the top right
 		show_linkback:		true,	// true, false
 		show_info:			'auto',	// auto - automaticly handle, true - force
-		show_extended_info:	'auto',	// auto - automaticly handle, true - force	
-		
+		show_extended_info:	'auto',	// auto - automaticly handle, true - force
+
 		// names of the options that can be modified
 		options:	['show_helper_text', 'auto_scroll', 'auto_resize', 'download_link', 'show_info', 'show_extended_info', 'ie6_support', 'colorBlend', 'baseurl', 'files', 'text', 'show_linkback', 'keys', 'opacity', 'padding', 'speed', 'rel', 'auto_relify'],
-		
+
 		// -----------------
 		// Functions
-		
+
 		construct: function ( options )
 		{	// Construct our Lightbox
-			
+
 			// -------------------
 			// Prepare
-			
+
 			// Initial construct
 			var initial = typeof this.constructed === 'undefined' || this.constructed === false;
 			this.constructed = true;
-			
+
 			// Perform domReady
 			var domReady = initial;
-			
+
 			// Prepare options
 			options = options || {};
-			
+
 			// -------------------
 			// Handle files
-			
+
 			// Prepend function to use later
 			var prepend = function(item, value) {
 				if ( typeof item === 'object' ) {
@@ -876,14 +876,14 @@
 				}
 				return item;
 			}
-			
+
 			// Add baseurl
 			if ( initial && (typeof options.files === 'undefined') )
 			{	// Load the files like default
-				
+
 				// Reset compressed
 				this.compressed = null;
-				
+
 				// Get the src of the first script tag that includes our js file (with or without an appendix)
 				var $script = $('script[src*='+this.files.compressed.scripts.lightbox+']:first');
 				if ( $script.length !== 0 ) {
@@ -901,7 +901,7 @@
 						// Nothing
 					}
 				}
-				
+
 				// Make sure we found ourselves
 				if ( this.compressed === null )
 				{	// We didn't
@@ -911,20 +911,20 @@
 				}
 				else
 				{	// We found ourself
-					
+
 					// Grab the script src
 					this.src = $script.attr('src');
-					
+
 					// The baseurl is the src up until the start of our js file
 					this.baseurl = this.src.substring(0, this.src.indexOf(this.files.scripts.lightbox));
-					
+
 					// Prepend baseurl to files
 					this.files = prepend(this.files, this.baseurl);
-					
+
 					// Now as we have source, we may have more params
 					options = $.extend(options, this.src.queryStringToJSON());
 				}
-				
+
 				// Create
 				this.images.image = {
 					src:	'',
@@ -976,15 +976,15 @@
 						});
 						return;
 					}
-					
+
 					var image = images.prepare(obj);
-					
+
 					if ( !image ) {
 						window.console.error('We dont know what we have:', obj, image);
 					} else {
 						images.push(image);
 					}
-					
+
 					return images;
 				};
 			}
@@ -998,10 +998,10 @@
 			{	// Don't have any files, so no need to perform domReady
 				domReady = false;
 			}
-			
+
 			// -------------------
 			// Apply options
-			
+
 			for ( var i in this.options )
 			{	// Cycle through the options
 				var name = this.options[i];
@@ -1014,10 +1014,10 @@
 					this[name] = options[name];
 				}
 			}	delete i;
-			
+
 			// -------------------
 			// Figure out what to do
-			
+
 			// Handle IE6
 			if ( initial && navigator.userAgent.indexOf('MSIE 6') >= 0 )
 			{	// Is IE6
@@ -1027,10 +1027,10 @@
 			{	// We are not IE6
 				this.ie6 = false;
 			}
-			
+
 			// -------------------
 			// Handle our DOM
-			
+
 			if ( domReady || typeof options.download_link !== 'undefined' ||  typeof options.colorBlend !== 'undefined' || typeof options.files === 'object' || typeof options.text === 'object' || typeof options.show_linkback !== 'undefined' || typeof options.scroll_with !== 'undefined' )
 			{	// We have reason to handle the dom
 				$(function() {
@@ -1038,24 +1038,24 @@
 					$.Lightbox.domReady();
 				});
 			}
-			
+
 			// -------------------
 			// Finish Up
-			
+
 			// All good
 			return true;
 		},
-		
+
 		domReady: function ( )
 		{
 			// -------------------
 			// Include resources
-			
+
 			// Grab resources
 			var bodyEl = document.getElementsByTagName($.browser.safari ? 'head' : 'body')[0];
 			var stylesheets = this.files.styles;
 			var scripts = this.files.scripts;
-			
+
 			// colorBlend
 			if ( this.colorBlend === true && typeof $.colorBlend === 'undefined' )
 			{	// Force colorBlend
@@ -1068,7 +1068,7 @@
 				// Remove colorBlend file
 				delete scripts.colorBlend;
 			}
-			
+
 			// Include stylesheets
 			for ( stylesheet in stylesheets )
 			{
@@ -1081,7 +1081,7 @@
 				$('#'+linkEl.id).remove();
 				bodyEl.appendChild(linkEl);
 			}
-			
+
 			// Include javascripts
 			delete scripts.lightbox; // prevent us from including ourself
 			for ( script in scripts )
@@ -1093,29 +1093,29 @@
 				$('#'+scriptEl.id).remove();
 				bodyEl.appendChild(scriptEl);
 			}
-			
+
 			// Cleanup
 			delete scripts;
 			delete stylesheets;
 			delete bodyEl;
-			
+
 			// -------------------
 			// Append display
-			
+
 			// Append markup
 			$('#lightbox,#lightbox-overlay').remove();
 			$('body').append('<div id="lightbox-overlay"><div id="lightbox-overlay-text">'+(this.show_linkback?'<p><span id="lightbox-overlay-text-about"><a href="#" title="'+this.text.about.title+'">'+this.text.about.text+'</a></span></p><p>&nbsp;</p>':'')+(this.show_helper_text?'<p><span id="lightbox-overlay-text-close">'+this.text.help.close+'</span><br/>&nbsp;<span id="lightbox-overlay-text-interact">'+this.text.help.interact+'</span></p>':'')+'</div></div><div id="lightbox"><div id="lightbox-imageBox"><div id="lightbox-imageContainer"><img id="lightbox-image" /><div id="lightbox-nav"><a href="#" id="lightbox-nav-btnPrev"></a><a href="#" id="lightbox-nav-btnNext"></a></div><div id="lightbox-loading"><a href="#" id="lightbox-loading-link"><img src="' + this.files.images.loading + '" /></a></div></div></div><div id="lightbox-infoBox"><div id="lightbox-infoContainer"><div id="lightbox-infoHeader"><span id="lightbox-caption">'+(this.download_link ? '<a href="#" title="' + this.text.download + '" id="lightbox-caption-title"></a>' : '<span id="lightbox-caption-title"></span>')+'<span id="lightbox-caption-seperator"></span><span id="lightbox-caption-description"></span></span></div><div id="lightbox-infoFooter"><span id="lightbox-currentNumber"></span><span id="lightbox-close"><a href="#" id="lightbox-close-button" title="'+this.text.closeInfo+'">' + this.text.close + '</a></span></div><div id="lightbox-infoContainer-clear"></div></div></div></div>');
-			
+
 			// Update Boxes - for some crazy reason this has to be before the hide in safari and konqueror
 			this.resizeBoxes();
 			this.repositionBoxes();
-			
+
 			// Hide
 			$('#lightbox,#lightbox-overlay,#lightbox-overlay-text-interact').hide();
-			
+
 			// -------------------
 			// Browser specifics
-			
+
 			// Handle IE6
 			if ( this.ie6 && this.ie6_support )
 			{	// Support IE6
@@ -1127,10 +1127,10 @@
 					left:		'0px'
 				});
 			}
-			
+
 			// -------------------
 			// Preload Images
-			
+
 			// Cycle and preload
 			$.each(this.files.images, function()
 			{	// Proload the image
@@ -1140,16 +1140,16 @@
 					preloader = null;
 				};	preloader.src = this;
 			});
-			
+
 			// -------------------
 			// Apply events
-			
+
 			// If the window resizes, act appropriatly
 			$(window).unbind('resize').resize(function ()
 			{	// The window has been resized
 				$.Lightbox.resizeBoxes('resized');
 			});
-			
+
 			// If the window scrolls, act appropriatly
 			if ( this.scroll === 'follow' )
 			{	// We want to
@@ -1158,7 +1158,7 @@
 					$.Lightbox.repositionBoxes();
 				});
 			}
-			
+
 			// Prev
 			$('#lightbox-nav-btnPrev').unbind().preventDefault().hover(function() { // over
 				$(this).css({ 'background' : 'url(' + $.Lightbox.files.images.prev + ') left 45% no-repeat' });
@@ -1168,7 +1168,7 @@
 				$.Lightbox.showImage('prev');
 				return false;
 			});
-					
+
 			// Next
 			$('#lightbox-nav-btnNext').unbind().preventDefault().hover(function() { // over
 				$(this).css({ 'background' : 'url(' + $.Lightbox.files.images.next + ') right 45% no-repeat' });
@@ -1178,7 +1178,7 @@
 				$.Lightbox.showImage('next');
 				return false;
 			});
-			
+
 			// Help
 			if ( this.show_linkback )
 			{	// Linkback exists so add handler
@@ -1192,34 +1192,34 @@
 					$('#lightbox-overlay-text-interact').fadeOut();
 				}
 			);
-			
+
 			// Image link
 			if ( this.download_link ) {
 				$('#lightbox-caption-title').preventDefault().lastclick(function(){window.open($(this).attr('href')); return false;});
 			}
-			
+
 			// Assign close clicks
 			$('#lightbox-overlay, #lightbox, #lightbox-loading-link, #lightbox-btnClose').unbind().preventDefault().lastclick(function() {
 				$.Lightbox.finish();
-				return false;	
+				return false;
 			});
-			
+
 			// -------------------
 			// Finish Up
-			
+
 			// Relify
 			if ( this.auto_relify )
 			{	// We want to relify, no the user
 				this.relify();
 			}
-			
+
 			// All good
 			return true;
 		},
-		
+
 		relify: function ( )
 		{	// Create event
-		
+
 			//
 			var groups = {};
 			var groups_n = 0;
@@ -1249,109 +1249,109 @@
 			// Done
 			return true;
 		},
-		
+
 		init: function ( image, images )
 		{	// Init a batch of lightboxes
-			
+
 			// Establish images
 			if ( typeof images === 'undefined' ) {
 				images = image;
 				image = 0;
 			}
-			
+
 			// Clear
 			this.images.clear();
-				
+
 			// Add images
 			this.images.create(images);
-			
+
 			// Do we need to bother
 			if ( this.images.isEmpty() ) {
 				// No images
 				window.console.warn('WARNING', 'Lightbox started, but no images: ', image, images);
 				return false;
 			}
-			
+
 			// Set current
 			if ( !this.images.current(image) ) {
 				// No images
 				window.console.warn('WARNING', 'Could not find current image: ', image, this.images);
 				return false;
 			}
-			
+
 			// Done
 			return true;
 		},
-		
+
 		start: function ( )
 		{	// Display the lightbox
-				
+
 			// We are alive
 			this.visible = true;
-			
+
 			// Adjust scrolling
 			if ( this.scroll === 'disable' )
-			{	// 
+			{	//
 				$(document.body).css('overflow', 'hidden');
 			}
-			
+
 			// Fix attention seekers
 			$('embed, object, select').css('visibility', 'hidden');//.hide(); - don't use this, give it a go, find out why!
-			
+
 			// Resize the boxes appropriatly
 			this.resizeBoxes('general');
-			
+
 			// Reposition the Boxes
 			this.repositionBoxes({'speed':0});
-			
+
 			// Hide things
 			$('#lightbox-infoFooter').hide(); // we hide this here because it makes the display smoother
 			$('#lightbox-image,#lightbox-nav,#lightbox-nav-btnPrev,#lightbox-nav-btnNext,#lightbox-infoBox').hide();
-					
+
 			// Display the boxes
 			$('#lightbox-overlay').css('opacity',this.opacity).fadeIn(400, function(){
 				// Show the lightbox
 				$('#lightbox').fadeIn(300);
-				
+
 				// Display first image
 				if ( !$.Lightbox.showImage() ) {
 					$.Lightbox.finish();
 					return false;
 				}
 			});
-			
+
 			// All done
 			return true;
 		},
-		
+
 		finish: function ( )
 		{	// Get rid of lightbox
-		
+
 			// Hide lightbox
 			$('#lightbox').hide();
 			$('#lightbox-overlay').fadeOut(function() { $('#lightbox-overlay').hide(); });
-			
+
 			// Fix attention seekers
 			$('embed, object, select').css({ 'visibility' : 'visible' });//.show();
-			
+
 			// Kill current image
 			this.images.reset();
-			
+
 			// Adjust scrolling
 			if ( this.scroll === 'disable' )
-			{	// 
+			{	//
 				$(document.body).css('overflow', 'visible');
 			}
-			
+
 			// We are dead
 			this.visible = false;
-			
+
 		},
-		
+
 		resizeBoxes: function ( type )
 		{	// Resize the boxes
 			// Used on transition or window resize
-			
+
 			// Resize Overlay
 			if ( type !== 'transition' )
 			{	// We don't care for transition
@@ -1362,7 +1362,7 @@
 				});
 				delete $body;
 			}
-			
+
 			// Handle cases
 			switch ( type )
 			{
@@ -1380,7 +1380,7 @@
 				default: // unknown
 					break;
 			}
-			
+
 			// Get image
 			var image = this.images.current();
 			if ( !image || !image.width || !this.visible )
@@ -1388,18 +1388,18 @@
 				//window.console.warn('A resize occured while no image or no lightbox...');
 				return false;
 			}
-			
+
 			// Resize image box
 			// i:image, w:window, b:box, c:current, n:new, d:difference
-			
+
 			// Get image dimensions
 			var iWidth  = image.width;
 			var iHeight = image.height;
-			
+
 			// Get window dimensions
 			var wWidth  = $(window).width();
 			var wHeight = $(window).height();
-			
+
 			// Check if we are in size
 			// Lightbox can take up 4/5 of size
 			if ( this.auto_resize !== false )
@@ -1423,25 +1423,25 @@
 					}
 				}
 			}
-			
+
 			// Get current width and height
 			var cWidth  = $('#lightbox-imageBox').width();
 			var cHeight = $('#lightbox-imageBox').height();
-	
+
 			// Get the width and height of the selected image plus the padding
 			// padding*2 for both sides (left+right || top+bottom)
 			var nWidth	= (iWidth  + (this.padding * 2));
 			var nHeight	= (iHeight + (this.padding * 2));
-			
+
 			// Diferences
 			var dWidth  = cWidth  - nWidth;
 			var dHeight = cHeight - nHeight;
-			
+
 			// Set the overlay buttons height and the infobox width
 			// Other dimensions specified by CSS
-			$('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css('height', nHeight); 
+			$('#lightbox-nav-btnPrev,#lightbox-nav-btnNext').css('height', nHeight);
 			$('#lightbox-infoBox').css('width', nWidth);
-			
+
 			// Handle final action
 			if ( type === 'transition' )
 			{	// We are transition
@@ -1464,14 +1464,14 @@
 				$('#lightbox-image').animate({width:iWidth, height:iHeight}, this.speed);
 				$('#lightbox-imageBox').animate({width: nWidth, height: nHeight}, this.speed);
 			}
-			
+
 			// Reposition
 			this.repositionBoxes({'nHeight':nHeight, 'speed':this.speed});
-			
+
 			// Done
 			return true;
 		},
-		
+
 		repositioning:			false,	// are we currently repositioning
 		reposition_failsafe:	false,	// failsafe
 		repositionBoxes: function ( options )
@@ -1483,25 +1483,25 @@
 				return null;
 			}
 			this.repositioning = true;
-			
+
 			// Options
 			options = $.extend({}, options);
 			options.callback = options.callback || null;
 			options.speed = options.speed || 'slow';
-			
+
 			// Get page scroll
 			var pageScroll = this.getPageScroll();
-			
+
 			// Figure it out
 			// alert($(window).height()+"\n"+$(document.body).height()+"\n"+$(document).height());
 			// var nHeight = options.nHeight || parseInt($('#lightbox').height(),10) || $(document).height()/3;
 			var nHeight = options.nHeight || parseInt($('#lightbox').height(),10);
-			
+
 			// Display lightbox in center
 			// var nTop = pageScroll.yScroll + ($(document.body).height() /*frame height*/ - nHeight) / 2.5;
 			var nTop = pageScroll.yScroll + ($(window).height() /*frame height*/ - nHeight) / 2.5;
 			var nLeft = pageScroll.xScroll;
-			
+
 			// Animate
 			var css = {
 				left: nLeft,
@@ -1537,42 +1537,42 @@
 					this.repositioning = false;
 				}
 			}
-			
+
 			// Done
 			return true;
 		},
-		
+
 		visible: false,
 		showImage: function ( image, step ){
 			// Default step
 			step = step || 1;
-			
+
 			// Make the image the current image, or get the current
 			image = this.images.current(image) || this.images.get('first',true);
 			if ( !image ) {
 				return;
 			}
-			
+
 			// What do we need to do
 			switch ( step )
 			{
 				// ---------------------------------
 				// We need to preload
 				case 1:
-				
+
 					// Disable keyboard nav
 					this.KeyboardNav_Disable();
-					
+
 					// Show the loading image
 					$('#lightbox-loading').show();
-					
+
 					// Hide things
 					$('#lightbox-image,#lightbox-nav,#lightbox-nav-btnPrev,#lightbox-nav-btnNext,#lightbox-infoBox').hide();
-					
+
 					// Remove show info events
 					$('#lightbox-imageBox').unbind();
 					// ^ Why? Because otherwise when the image is changing, the info pops out, not good!
-					
+
 					// Check if we need to preload
 					if ( image.width && image.height )
 					{	// We don't
@@ -1598,24 +1598,24 @@
 						// Start preload
 						preloader.src = image.src;
 					}
-					
+
 					// Done
 					break;
-				
-				
+
+
 				// ---------------------------------
 				// Resize the container
 				case 2:
-					
+
 					// Apply image changes
 					$('#lightbox-image').attr('src', image.src);
-					
+
 					// Set container border (Moved here for Konqueror fix - Credits to Blueyed)
 					if ( typeof this.padding === 'undefined' || this.padding === null || isNaN(this.padding) )
 					{	// Autodetect
 						this.padding = parseInt($('#lightbox-imageContainer').css('padding-left'), 10) || parseInt($('#lightbox-imageContainer').css('padding'), 10) || 0;
 					}
-					
+
 					// Use colorBlend?
 					if ( this.colorBlend )
 					{	// We have colorBlend
@@ -1624,47 +1624,47 @@
 						// Border
 						$('#lightbox-imageBox').css('borderColor', image.color);
 					}
-					
+
 					// Resize boxes
 					this.resizeBoxes('transition');
 					// ^ contains callback to next step
-					
+
 					// Done
 					break;
-				
-				
+
+
 				// ---------------------------------
 				// Display the image
 				case 3:
-					
+
 					// Hide loading
 					$('#lightbox-loading').hide();
-					
+
 					// Animate image
 					$('#lightbox-image').fadeIn(this.speed*1.5, function() {
 						$.Lightbox.showImage(null, 4);
 					});
-					
+
 					// Start the proloading of other images
 					this.preloadNeighbours();
-					
+
 					// Fire custom handler show
 					if ( this.handlers.show !== null )
 					{	// Fire it
 						this.handlers.show(image);
 					}
-					
+
 					// Done
 					break;
-				
-				
+
+
 				// ---------------------------------
 				// Set image info / Set navigation
 				case 4:
-					
+
 					// ---------------------------------
 					// Set image info
-					
+
 					// Hide and set image info
 					var $title = $('#lightbox-caption-title').html(image.title || 'Untitled');
 					if ( this.download_link ) {
@@ -1673,7 +1673,7 @@
 					delete $title;
 					$('#lightbox-caption-seperator').html(image.description ? ': ' : '');
 					$('#lightbox-caption-description').html(image.description || '&nbsp;');
-					
+
 					// If we have a set, display image position
 					if ( this.images.length > 1 )
 					{	// Display
@@ -1682,20 +1682,20 @@
 					{	// Empty
 						$('#lightbox-currentNumber').html('&nbsp;');
 					}
-					
+
 					// ---------------------------------
 					// Info events
-					
+
 					// Apply event
 					$('#lightbox-imageBox').unbind('mouseover').mouseover(function(){
 						$('#lightbox-infoBox:not(:visible)').stop().slideDown('fast');
 					});
-					
+
 					// Apply event
 					$('#lightbox-infoBox').unbind('mouseover').mouseover(function(){
 						$('#lightbox-infoFooter:not(:visible)').stop().slideDown('fast');
 					});
-					
+
 					// Forced show?
 					if ( this.show_extended_info === true )
 					{	// Force show
@@ -1706,61 +1706,61 @@
 					{	// Force show
 						$('#lightbox-imageBox').trigger('mouseover');
 					}
-					
+
 					// ---------------------------------
 					// Set navigation
-		
+
 					// Instead to define this configuration in CSS file, we define here. And it's need to IE. Just.
 					$('#lightbox-nav-btnPrev, #lightbox-nav-btnNext').css({ 'background' : 'transparent url(' + this.files.images.blank + ') no-repeat' });
-					
+
 					// If not first, show previous button
 					if ( !this.images.isFirst() ) {
 						// Not first, show button
 						$('#lightbox-nav-btnPrev').show();
 					}
-					
+
 					// If not last, show next button
 					if ( !this.images.isLast() ) {
 						// Not first, show button
 						$('#lightbox-nav-btnNext').show();
 					}
-					
+
 					// Make navigation current / show it
 					$('#lightbox-nav').show();
-					
+
 					// Enable keyboard navigation
 					this.KeyboardNav_Enable();
-					
+
 					// Done
 					break;
-					
-					
+
+
 				// ---------------------------------
 				// Error handling
 				default:
 					window.console.error('Don\'t know what to do: ', image, step);
 					return this.showImage(image, 1);
 					// break;
-				
+
 			}
-			
+
 			// All done
 			return true;
 		},
-		
+
 		preloadNeighbours: function ( )
 		{	// Preload all neighbour images
-			
+
 			// Do we need to do this?
 			if ( this.images.isSingle() || this.images.isEmpty() )
 			{	return true;	}
-			
+
 			// Get current image
 			var image = this.images.current();
 			var index = this.images.index;
 			if ( !image ) { return image; }
 			var objNext;
-			
+
 			// Load previous
 			var prev = this.images.prev();
 			if ( prev ) {
@@ -1768,7 +1768,7 @@
 				objNext.src = prev.src;
 			}
 			this.images.setIndex(index); // reset
-			
+
 			// Load next
 			var next = this.images.next();
 			if ( next ) {
@@ -1777,51 +1777,51 @@
 			}
 			this.images.setIndex(index); // reset
 		},
-		
+
 		// --------------------------------------------------
 		// Things we don't really care about
-		
+
 		KeyboardNav_Enable: function ( ) {
 			$(document).keydown(function(objEvent) {
 				$.Lightbox.KeyboardNav_Action(objEvent);
 			});
 		},
-		
+
 		KeyboardNav_Disable: function ( ) {
 			$(document).unbind('keydown');
 		},
-		
+
 		KeyboardNav_Action: function ( objEvent ) {
 			// Prepare
 			objEvent = objEvent || window.event;
-			
+
 			// Get the keycode
 			var keycode = objEvent.keyCode;
 			var escapeKey = objEvent.DOM_VK_ESCAPE /* moz */ || 27;
-			
+
 			// Get key
 			var key = String.fromCharCode(keycode).toLowerCase();
-			
+
 			// Close?
 			if ( key === this.keys.close || keycode === escapeKey )
 			{	return $.Lightbox.finish();		}
-			
+
 			// Prev?
 			if ( key === this.keys.prev || keycode === 37 )
 			{	// We want previous
 				return $.Lightbox.showImage('prev');
 			}
-			
+
 			// Next?
 			if ( key === this.keys.next || keycode === 39 )
 			{	// We want next
 				return $.Lightbox.showImage('next');
 			}
-			
+
 			// Unknown
 			return true;
 		},
-		
+
 		getPageScroll: function ( ) {
 			var xScroll, yScroll;
 			if (self.pageYOffset)
@@ -1835,28 +1835,28 @@
 			} else if (document.body)
 			{	// All other browsers
 				yScroll = document.body.scrollTop;
-				xScroll = document.body.scrollLeft;	
+				xScroll = document.body.scrollLeft;
 			}
 			var arrayPageScroll = {'xScroll':xScroll,'yScroll':yScroll};
 			return arrayPageScroll;
 		},
-		
+
 		pause: function ( ms ) {
 			var date = new Date();
 			var curDate = null;
 			do { curDate = new Date(); }
 			while ( curDate - date < ms);
 		}
-	
+
 	}); // We have finished extending/defining our LightboxClass
 
 
 	// --------------------------------------------------
 	// Finish up
-	
+
 	// Instantiate
 	if ( typeof $.Lightbox === 'undefined' )
-	{	// 
+	{	//
 		$.Lightbox = new $.LightboxClass();
 	}
 

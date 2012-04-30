@@ -1,0 +1,16 @@
+; This file is for unifying the coding style for different editors and IDEs.
+; More information at http://EditorConfig.org
+
+root = true
+
+[css/jquery.lightbox.js]
+indent_style = tab
+
+[css/jquery.lightbox.css]
+indent_style = tab
+
+[demo/*]
+indent_style = tab
+
+[Makefile]
+indent_style = tab

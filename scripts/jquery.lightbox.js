@@ -886,14 +886,14 @@
 				this.compressed = null;
 				
 				// Get the src of the first script tag that includes our js file (with or without an appendix)
-				var $script = $('script[src*='+this.files.compressed.scripts.lightbox+']:first');
+				var $script = $('script[src*="'+this.files.compressed.scripts.lightbox+'"]:first');
 				if ( $script.length !== 0 ) {
 					// Compressed
 					$.extend(true, this.files, this.files.compressed);
 					this.compressed = true;
 				} else {
 					// Uncompressed
-					$script = $('script[src*='+this.files.uncompressed.scripts.lightbox+']:first');
+					$script = $('script[src*="'+this.files.uncompressed.scripts.lightbox+'"]:first');
 					if ( $script.length !== 0 ) {
 						// Uncompressed
 						$.extend(true, this.files, this.files.uncompressed);

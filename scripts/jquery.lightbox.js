@@ -641,7 +641,7 @@
 					// Fire Event
 					event.type = 'lastclick';
 					event.isPropagationStopped = function() { return false };
-					$.event.handle.apply(Me, [event,clicks])
+					$.event.dispatch.apply(Me, [event,clicks])
 				},300);
 				// Store Timeout
 				$el.data('lastclick-timeout',timeout);

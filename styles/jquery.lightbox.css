@@ -29,7 +29,7 @@
  * @example Visit {@link http://github.com/balupton/jquery-lightbox} for more information.
  */
 
-html, body { margin: 8px; padding: 0; height: 100%;}
+html, body { margin: 5px; padding: 0; height: 100%;}
 
 #lightbox, #lightbox-overlay {
 	position: absolute;

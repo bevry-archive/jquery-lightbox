@@ -1,0 +1,30 @@
+{
+	"name": "jquery-lightbox",
+	"version": "1.4.9-final",
+	"description": "Lightboxes are a way to display an image on the same page simply and elegantly.",
+	"main": "scripts/jquery.lightbox.js",
+	"scripts": {
+		"build": "npm run build:refresh && npm run build:js && npm run build:css",
+		"build:refresh": "wget -q https://bevry-archive.github.io/jquery-history/demo/styles/generic.css -O ./demo/styles/generic.css",
+		"build:js": "minify ./scripts/jquery.lightbox.js > ./scripts/jquery.lightbox.min.js",
+		"build:css": "minify ./styles/jquery.lightbox.css > ./styles/jquery.lightbox.min.css",
+		"test": "echo 'no tests'"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bevry-archive/jquery-lightbox.git"
+	},
+	"keywords": [
+		"jquery",
+		"lightbox"
+	],
+	"author": "2007+ Benjamin Lupton <b@lupton.cc> (https://balupton.com)",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/bevry-archive/jquery-lightbox/issues"
+	},
+	"homepage": "https://github.com/bevry-archive/jquery-lightbox#readme",
+	"devDependencies": {
+		"minify": "^4.1.3"
+	}
+}
